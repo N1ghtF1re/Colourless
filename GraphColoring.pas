@@ -4,7 +4,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls,SplashScreen, pngimage;
 const
   R = 40;
   N = 12;
@@ -25,6 +25,7 @@ type
     Button2: TButton;
     Label1: TLabel;
     Label2: TLabel;
+    introIMG: TImage;
     procedure FormCreate(Sender: TObject);
     procedure Image1MouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
@@ -33,6 +34,7 @@ type
     procedure FormResize(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
+  splash: TSplash;
     { Private declarations }
   public
     { Public declarations }
@@ -136,7 +138,13 @@ end;
 procedure TgraphForm.FormCreate(Sender: TObject);
 var
   i,j: Integer;
+  png: TPngImage;
 begin
+  png:= TPngImage(introIMG.Picture);
+  Splash := TSplash.Create(png);
+  //ïîêàçûâàåì Splash
+  Splash.Show(false);
+
   InitHeight := Self.Height;
   InitWidth := Self.Width;
   for i := 1 to N do
@@ -182,6 +190,12 @@ begin
   Image1.Canvas.Ellipse(x0-R,Y0-R,X0+R,Y0+R);
   Image1.Canvas.Ellipse(x0+200-R,Y0-R,X0+200+R,Y0+R);}
 
+
+  Sleep(2000);
+
+  Splash.Close;
+
+  png.Free;
 end;
 
 procedure TgraphForm.FormKeyDown(Sender: TObject; var Key: Word;
