@@ -83,6 +83,8 @@ var i:integer;
     gameState1, gameState2:Boolean;
 begin
 gameState:=true;
+gameState1 := true;
+gameState2 := true;
 i:=1;
 while (i<=N) and (gameState) do
   begin
@@ -109,15 +111,15 @@ procedure TForm1.FormCreate(Sender: TObject);
 var
   i,j: Integer;
 begin
-  for i := 1 to 12 do
+  for i := 1 to N do
   begin
     PeakList[i].x := level1[1,i] + Level1XShift;
     PeakList[i].y := level1[2,i] + Level1YShift;
   end;
   Image1.Canvas.Pen.Width := 10;
-  for i := 1 to 11 do
+  for i := 1 to N-1 do
   begin
-    for j := 1 to 12 do
+    for j := 1 to N do
     begin
       //ShowMessage(IntToStr(i) + ' ' + IntToStr(j));
       if BConnection[i,j] = 1 then
@@ -137,7 +139,7 @@ begin
   end;              }
   Image1.Canvas.Brush.Color := clBlue;
   Image1.Canvas.Pen.Width := 1;
-  for i := 1 to 12 do
+  for i := 1 to N do
   begin
     Image1.Canvas.Ellipse(PeakList[i].x-R,PeakList[i].y-R,PeakList[i].x+R,PeakList[i].y+R);
   end;
