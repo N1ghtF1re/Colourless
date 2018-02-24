@@ -10,6 +10,7 @@ const
   N = 12;
 
 type
+ TBConnection1 = array [1..11,1..12] of byte;
   TStatus = (stBlue, stRed, stBlack);
   TArray = array [1..N] of Tstatus;
   TPeak = record
@@ -41,6 +42,19 @@ const
   (stRed,stBlue,stBlue,stBlue,stRed,stBlue,stBlue,stBlue,stRed,stRed,stBlue,stBlue);
   Answer2:TArray =
   (stBlue,stBlue,stRed,stBlue,stRed,stRed,stBlue,stBlue,stRed,stBlue,stBlue,stBlue);
+  const   // 2 3 4 5 6 7 8 9 0 1 2
+	BConnection:TBConnection1 =
+           ((0,1,0,1,1,0,0,0,0,0,0,0),
+				    (0,0,1,1,0,0,0,0,0,0,0,0),
+				    (0,0,0,1,0,0,0,0,0,1,0,0),
+				    (0,0,0,0,0,0,0,0,0,0,0,0),
+				    (0,0,0,0,0,1,0,0,0,0,0,1),
+				    (0,0,0,0,0,0,1,0,0,0,1,0),
+				    (0,0,0,0,0,0,0,1,0,1,0,0),
+				    (0,0,0,0,0,0,0,0,1,0,0,1),
+				    (0,0,0,0,0,0,0,0,0,1,0,0),
+				    (0,0,0,0,0,0,0,0,0,0,1,0),
+				    (0,0,0,0,0,0,0,0,0,0,0,1));
 var
   Form1: TForm1;
   PeakList:TPeakList;
@@ -87,24 +101,32 @@ end;
 
 procedure TForm1.FormCreate(Sender: TObject);
 var
-  i: Integer;
+  i,j: Integer;
 begin
-  for i := 1 to N do
+  for i := 1 to 12 do
   begin
     PeakList[i].x := level1[1,i] + Level1XShift;
     PeakList[i].y := level1[2,i] + Level1YShift;
   end;
   Image1.Canvas.Pen.Width := 10;
-  Image1.Canvas.MoveTo(PeakList[1].x, PeakList[1].y);
-  for i := 1 to N do
+  for i := 2 to 12 do
+  begin
+    for j := i-1 to 12 do
+    begin
+      if BConnection[i,j] = 1 then
+
+    end;
+  end;
+  {Image1.Canvas.MoveTo(PeakList[1].x, PeakList[1].y);
+  for i := 1 to 12 do
   begin
     PeakList[i].x := level1[1,i];
     PeakList[i].y := level1[2,i];
     Image1.Canvas.LineTo(PeakList[i].x, PeakList[i].y);
-  end;
+  end;              }
   Image1.Canvas.Brush.Color := clBlue;
   Image1.Canvas.Pen.Width := 1;
-  for i := 1 to N do
+  for i := 1 to 12 do
   begin
     Image1.Canvas.Ellipse(PeakList[i].x-R,PeakList[i].y-R,PeakList[i].x+R,PeakList[i].y+R);
   end;
