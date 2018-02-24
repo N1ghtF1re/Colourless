@@ -76,7 +76,7 @@ for i := 1 to N do
   PeakList[i].status :=stBlue;
   x0:= PeakList[i].x;
   y0:= PeakList[i].y;
-  image1.Canvas.Brush.Color := clBlue;
+  Image1.Canvas.Brush.Color := RGB(104,174,186);
   Image1.Canvas.Ellipse(x0-R,Y0-R,X0+R,Y0+R)
   end;
 button2.Visible:=False;
