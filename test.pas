@@ -69,19 +69,22 @@ var i:integer;
 
 begin
 gameState:=true;
-  for i := 1 to 12 do
+  for i := 1 to n do
     if (Peaklist[i].Status <> Answer1[i])
       then
        gameState:=False;
        if not(gameState) then
        begin
         gameState:=True;
-        for i := 1 to 12 do
+        for i := 1 to N do
            if (Peaklist[i].Status <> Answer2[i]) then
         gameState:=False;
        end;
        if gameState then
-       ShowMessage('You win');
+       ShowMessage('You win')
+       else
+       button2.Visible:=true;
+
 
 end;
 
@@ -93,6 +96,7 @@ begin
   begin
     PeakList[i].x := level1[1,i] + Level1XShift;
     PeakList[i].y := level1[2,i] + Level1YShift;
+    PeakList[i].status := stBlue;
   end;
   Image1.Canvas.Pen.Width := 10;
   Image1.Canvas.MoveTo(PeakList[1].x, PeakList[1].y);
