@@ -39,9 +39,9 @@ const
   Level1XShift = 100;
   Level1YShift = 20;
   Answer1:TArray =
-  (stRed,stBlue,stBlue,stBlue,stRed,stBlue,stBlue,stBlue,stRed,stRed,stBlue,stBlue);
+  (stBlack,stRed,stRed,stRed,stBlack,stRed,stRed,stRed,stBlack,stBlack,stRed,stRed);
   Answer2:TArray =
-  (stBlue,stBlue,stRed,stBlue,stRed,stRed,stBlue,stBlue,stRed,stBlue,stBlue,stBlue);
+  (stRed,stRed,stBlack,stRed,stBlack,stBlack,stRed,stRed,stBlack,stRed,stRed,stRed);
   const   // 2 3 4 5 6 7 8 9 0 1 2
 	BConnection:TBConnection1 =
            ((0,1,0,1,1,0,0,0,0,0,0,0),
