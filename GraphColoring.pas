@@ -31,6 +31,7 @@ type
     procedure ButtonRestartClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure FormResize(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     { Private declarations }
   public
@@ -39,8 +40,8 @@ type
 
 const
   Level1:array[1..2, 1..N] of integer = ((180,300,420,300,60,180,300,420,540,420,300,180),(110,40,110,200,400,320,320,320,400,500,500,500));
-  Level1XShift = 180;
-  Level1YShift = 100;
+  Level1XShift = 120;
+  Level1YShift = 60;
   Answer1:TArray =
   (stBlack,stRed,stRed,stRed,stBlack,stRed,stRed,stRed,stBlack,stBlack,stRed,stRed);
   Answer2:TArray =
@@ -177,6 +178,12 @@ begin
   Image1.Canvas.Ellipse(x0-R,Y0-R,X0+R,Y0+R);
   Image1.Canvas.Ellipse(x0+200-R,Y0-R,X0+200+R,Y0+R);}
 
+end;
+
+procedure TgraphForm.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  ShowMessage(IntToStr(key));
 end;
 
 procedure TgraphForm.FormResize(Sender: TObject);
