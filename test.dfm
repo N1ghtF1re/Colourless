@@ -2,8 +2,8 @@ object Form1: TForm1
   Left = 0
   Top = 0
   Caption = 'Form1'
-  ClientHeight = 412
-  ClientWidth = 711
+  ClientHeight = 858
+  ClientWidth = 974
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -17,24 +17,28 @@ object Form1: TForm1
   object Image1: TImage
     Left = 0
     Top = 0
-    Width = 526
-    Height = 412
+    Width = 789
+    Height = 858
     Align = alClient
     Constraints.MinHeight = 412
     Constraints.MinWidth = 526
     OnMouseUp = Image1MouseUp
     ExplicitLeft = -6
+    ExplicitWidth = 526
+    ExplicitHeight = 412
   end
   object pnlSidebar: TPanel
-    Left = 526
+    Left = 789
     Top = 0
     Width = 185
-    Height = 412
+    Height = 858
     Align = alRight
     Color = clInfoBk
     ParentBackground = False
     ShowCaption = False
     TabOrder = 0
+    ExplicitLeft = 526
+    ExplicitHeight = 412
     object Button1: TButton
       Left = 24
       Top = 336
