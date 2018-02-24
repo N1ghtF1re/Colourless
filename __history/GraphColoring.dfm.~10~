@@ -12,7 +12,6 @@ object graphForm: TgraphForm
   Font.Style = []
   OldCreateOrder = False
   OnCreate = FormCreate
-  OnDestroy = FormDestroy
   OnKeyDown = FormKeyDown
   OnResize = FormResize
   PixelsPerInch = 96

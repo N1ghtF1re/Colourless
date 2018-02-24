@@ -33,6 +33,7 @@ type
     procedure Button1Click(Sender: TObject);
     procedure FormResize(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure FormDestroy(Sender: TObject);
   private
   splash: TSplash;
     { Private declarations }
@@ -195,7 +196,12 @@ begin
 
   Splash.Close;
 
-  png.Free;
+  //png.Free;
+end;
+
+procedure TgraphForm.FormDestroy(Sender: TObject);
+begin
+  Splash.Free;
 end;
 
 procedure TgraphForm.FormKeyDown(Sender: TObject; var Key: Word;
