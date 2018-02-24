@@ -17,15 +17,24 @@ type
     Image1: TImage;
     pnlSidebar: TPanel;
     Button1: TButton;
+<<<<<<< HEAD
     procedure FormCreate(Sender: TObject);
     procedure Image1MouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
+=======
+    Button2: TButton;
+    procedure FormCreate(Sender: TObject);
+    procedure Image1MouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure ButtonRestartClick(Sender: TObject);
+>>>>>>> 4e2bbef02194dc4b863d26a4d166e969ed0644aa
   private
     { Private declarations }
   public
     { Public declarations }
   end;
 const
+<<<<<<< HEAD
   x0 = 40;
   y0 = 40;
   R = 40;
@@ -34,11 +43,20 @@ var
   Form1: TForm1;
   PeakList:TPeakList;
 
+=======
+  R = 40;
+  N = 12;
+var
+  Form1: TForm1;
+  PeakList:TPeakList;
+  x0,y0:integer;
+>>>>>>> 4e2bbef02194dc4b863d26a4d166e969ed0644aa
 
 implementation
 
 {$R *.dfm}
 
+<<<<<<< HEAD
 procedure TForm1.FormCreate(Sender: TObject);
 var
   i: Integer;
@@ -60,6 +78,27 @@ begin
   //Image1.Canvas.MoveTo(X0,Y0);
   //Image1.Canvas.LineTo(x0+100, y0+100);
   //Image1.Canvas.LineTo(x0+200, y0);
+=======
+procedure TForm1.ButtonRestartClick(Sender: TObject);
+var i:integer;
+begin
+for i := 1 to N do
+  begin
+  PeakList[i].status :=stBlue;
+  x0:= PeakList[i].x;
+  y0:= PeakList[i].y;
+  Image1.Canvas.Ellipse(x0-R,Y0-R,X0+R,Y0+R)
+  end;
+
+end;
+
+Procedure TForm1.FormCreate(Sender: TObject);
+begin
+  Image1.Canvas.MoveTo(X0,Y0);
+  Image1.Canvas.Pen.Width := 10;
+  Image1.Canvas.LineTo(x0+100, y0+100);
+  Image1.Canvas.LineTo(x0+200, y0);
+>>>>>>> 4e2bbef02194dc4b863d26a4d166e969ed0644aa
   Image1.Canvas.Pen.Width := 1;
   Image1.Canvas.Brush.Color := clBlue;
   Image1.Canvas.Ellipse(x0-R,Y0-R,X0+R,Y0+R);
@@ -67,6 +106,7 @@ begin
 
 end;
 
+<<<<<<< HEAD
 procedure TForm1.Image1MouseUp(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
@@ -79,6 +119,42 @@ begin
       Image1.Canvas.Brush.Color := clBlack;
     Image1.Canvas.Ellipse(x0-R,Y0-R,X0+R,Y0+R);
   end;   }
+=======
+procedure TForm1.Image1MouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+var i:integer;
+begin
+  if (((X0-x)*(X0-x) + (Y0-y)*(Y0-y) < R*R)) then
+  begin
+    //ShowMessage(IntToStr(x) + ' ' + IntToStr(y));
+    if  Button=mbLeft then
+      begin
+      Image1.Canvas.Brush.Color := clRed;
+      for i:=1 to N do
+        begin
+        if (PeakList[i].x-x)(PeakList[i].x-x) + (PeakList[i].y-y)(PeakList[i].y-y) <= R*R then
+          begin
+          x0:= PeakList[i].x;
+          y0:= PeakList[i].y;
+          PeakList[i].status :=stRed;
+          end;
+        end;
+      end
+    else if Button=mbRight then
+      begin
+      Image1.Canvas.Brush.Color := clBlack;
+      for i:=1 to N do
+        begin
+        if (PeakList[i].x-x)(PeakList[i].x-x) + (PeakList[i].y-y)(PeakList[i].y-y) <= R*R then
+          begin
+          x0:= PeakList[i].x;
+          y0:= PeakList[i].y;
+          PeakList[i].status :=stBlack;
+          end;
+        end;
+      end;
+    Image1.Canvas.Ellipse(x0-R,Y0-R,X0+R,Y0+R);
+  end;
+>>>>>>> 4e2bbef02194dc4b863d26a4d166e969ed0644aa
 end;
 
 end.
