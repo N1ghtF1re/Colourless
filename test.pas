@@ -45,16 +45,16 @@ const
   const   // 2 3 4 5 6 7 8 9 0 1 2
 	BConnection:TBConnection1 =
            ((0,1,0,1,1,0,0,0,0,0,0,0),
-				    (0,0,1,1,0,0,0,0,0,0,0,0),
-				    (0,0,0,1,0,0,0,0,0,1,0,0),
-				    (0,0,0,0,0,0,0,0,0,0,0,0),
-				    (0,0,0,0,0,1,0,0,0,0,0,1),
-				    (0,0,0,0,0,0,1,0,0,0,1,0),
-				    (0,0,0,0,0,0,0,1,0,1,0,0),
-				    (0,0,0,0,0,0,0,0,1,0,0,1),
-				    (0,0,0,0,0,0,0,0,0,1,0,0),
-				    (0,0,0,0,0,0,0,0,0,0,1,0),
-				    (0,0,0,0,0,0,0,0,0,0,0,1));
+            (0,0,1,1,0,0,0,0,0,0,0,0),
+            (0,0,0,1,0,0,0,0,1,0,0,0),
+            (0,0,0,0,0,0,0,0,0,0,0,0),
+            (0,0,0,0,0,1,0,0,0,0,0,1),
+            (0,0,0,0,0,0,1,0,0,0,1,0),
+            (0,0,0,0,0,0,0,1,0,1,0,0),
+            (0,0,0,0,0,0,0,0,1,0,0,1),
+            (0,0,0,0,0,0,0,0,0,1,0,0),
+            (0,0,0,0,0,0,0,0,0,0,1,0),
+            (0,0,0,0,0,0,0,0,0,0,0,1));
 var
   Form1: TForm1;
   PeakList:TPeakList;
@@ -115,14 +115,17 @@ begin
     PeakList[i].y := level1[2,i] + Level1YShift;
   end;
   Image1.Canvas.Pen.Width := 10;
-  for i := 2 to 12 do
+  for i := 1 to 11 do
   begin
     for j := 1 to 12 do
     begin
+      //ShowMessage(IntToStr(i) + ' ' + IntToStr(j));
       if BConnection[i,j] = 1 then
       begin
+        Memo1.Lines.Add(IntToStr(i) + ' ' + IntToStr(j));
         Image1.Canvas.MoveTo(PeakList[i].x, PeakList[i].y);
         Image1.Canvas.LineTo(PeakList[j].x, PeakList[j].y);
+
       end;
     end;
   end;
