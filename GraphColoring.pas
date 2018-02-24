@@ -187,7 +187,16 @@ end;
 procedure TgraphForm.FormKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-  //ShowMessage(IntToStr(key));
+  if key = 122 then
+  begin
+    BorderStyle := bsNone;
+    WindowState := wsMaximized;
+  end;
+  if key = 27 then
+  begin
+    BorderStyle := bsSingle;
+    WindowState := wsNormal;
+  end;
 end;
 
 procedure TgraphForm.FormResize(Sender: TObject);
