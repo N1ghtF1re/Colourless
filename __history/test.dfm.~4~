@@ -21,7 +21,8 @@ object Form1: TForm1
     Height = 412
     Align = alClient
     OnMouseUp = Image1MouseUp
-    ExplicitLeft = -6
+    ExplicitWidth = 553
+    ExplicitHeight = 409
   end
   object pnlSidebar: TPanel
     Left = 526
