@@ -31,9 +31,15 @@ implementation
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
-
+  Image1.Canvas.MoveTo(X0,Y0);
+  Image1.Canvas.Pen.Width := 10;
+  Image1.Canvas.LineTo(x0+100, y0+100);
+  Image1.Canvas.LineTo(x0+200, y0);
+  Image1.Canvas.Pen.Width := 1;
   Image1.Canvas.Brush.Color := clBlue;
   Image1.Canvas.Ellipse(x0-R,Y0-R,X0+R,Y0+R);
+  Image1.Canvas.Ellipse(x0+200-R,Y0-R,X0+200+R,Y0+R);
+
 end;
 
 procedure TForm1.Image1MouseUp(Sender: TObject; Button: TMouseButton;
