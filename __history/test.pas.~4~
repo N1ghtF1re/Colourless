@@ -51,34 +51,16 @@ begin
 
 end;
 
-procedure TForm1.Image1MouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-var i:integer;
+procedure TForm1.Image1MouseUp(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
 begin
   if (((X0-x)*(X0-x) + (Y0-y)*(Y0-y) < R*R)) then
   begin
     //ShowMessage(IntToStr(x) + ' ' + IntToStr(y));
     if  Button=mbLeft then
-      begin
-      Image1.Canvas.Brush.Color := clRed;
-      for i:=1 to 12 do
-        begin
-        if (PeakList[i].x-x)(PeakList[i].x-x) + (PeakList[i].y-y)(PeakList[i].y-y) <= R*R then
-          begin
-          PeakList[i].status :=stRed;
-          end;
-        end;
-      end
+      Image1.Canvas.Brush.Color := clRed
     else if Button=mbRight then
-      begin
-        Image1.Canvas.Brush.Color := clBlack;
-        for i:=1 to 12 do
-          begin
-          if (PeakList[i].x-x)(PeakList[i].x-x) + (PeakList[i].y-y)(PeakList[i].y-y) <= R*R then
-            begin
-            PeakList[i].status :=stBlack;
-            end;
-          end;
-      end;
+      Image1.Canvas.Brush.Color := clBlack;
     Image1.Canvas.Ellipse(x0-R,Y0-R,X0+R,Y0+R);
   end;
 end;

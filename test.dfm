@@ -34,9 +34,6 @@ object Form1: TForm1
     ParentBackground = False
     ShowCaption = False
     TabOrder = 0
-    ExplicitLeft = 568
-    ExplicitTop = 152
-    ExplicitHeight = 41
     object Button1: TButton
       Left = 24
       Top = 336
