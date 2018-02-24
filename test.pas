@@ -158,9 +158,10 @@ begin
             x0:= PeakList[i].x;
             y0:= PeakList[i].y;
             PeakList[i].status :=stRed;
+            Image1.Canvas.Ellipse(x0-R,Y0-R,X0+R,Y0+R);
           end;
         end;
-      Image1.Canvas.Ellipse(x0-R,Y0-R,X0+R,Y0+R);
+
       end
     else if Button=mbRight then
       begin
@@ -172,9 +173,10 @@ begin
           x0:= PeakList[i].x;
           y0:= PeakList[i].y;
           PeakList[i].status :=stBlack;
+          Image1.Canvas.Ellipse(x0-R,Y0-R,X0+R,Y0+R);
           end;
         end;
-      Image1.Canvas.Ellipse(x0-R,Y0-R,X0+R,Y0+R);
+
       end;
 
 
