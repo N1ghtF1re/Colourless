@@ -122,7 +122,6 @@ begin
       //ShowMessage(IntToStr(i) + ' ' + IntToStr(j));
       if BConnection[i,j] = 1 then
       begin
-        Memo1.Lines.Add(IntToStr(i) + ' ' + IntToStr(j));
         Image1.Canvas.MoveTo(PeakList[i].x, PeakList[i].y);
         Image1.Canvas.LineTo(PeakList[j].x, PeakList[j].y);
 
