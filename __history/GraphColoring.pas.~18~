@@ -1,0 +1,283 @@
+﻿unit GraphColoring;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, VcL.Menus, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls,SplashScreen, pngimage,
+  Instructions;
+const
+  R = 40;
+  N = 12;
+
+type
+ TBConnection1 = array [1..11,1..12] of byte;
+  TStatus = (stBlue, stRed, stBlack);
+  TArray = array [1..N] of Tstatus;
+  TPeak = record
+    x,y:integer;
+    status:TStatus;
+  end;
+  TPeakList = array[1..N] of TPeak;
+  TgraphForm = class(TForm)
+    Image1: TImage;
+    pnlSidebar: TPanel;
+    Button1: TButton;
+    Button2: TButton;
+    Label1: TLabel;
+    Label2: TLabel;
+    introIMG: TImage;
+    MainMenu1: TMainMenu;
+    N1: TMenuItem;
+    N2: TMenuItem;
+    N3: TMenuItem;
+    procedure FormCreate(Sender: TObject);
+    procedure Image1MouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure ButtonRestartClick(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+    procedure FormResize(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure FormDestroy(Sender: TObject);
+    procedure N2Click(Sender: TObject);
+  private
+  splash: TSplash;
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+const
+  Level1:array[1..2, 1..N] of integer = ((180,300,420,300,60,180,300,420,540,420,300,180),(110,40,110,200,400,320,320,320,400,500,500,500));
+  Level1XShift = 120;
+  Level1YShift = 60;
+  Answer1:TArray =
+  (stBlack,stRed,stRed,stRed,stBlack,stRed,stRed,stRed,stBlack,stBlack,stRed,stRed);
+  Answer2:TArray =
+  (stRed,stRed,stBlack,stRed,stBlack,stBlack,stRed,stRed,stBlack,stRed,stRed,stRed);
+  const   // 2 3 4 5 6 7 8 9 0 1 2
+	BConnection:TBConnection1 =
+           ((0,1,0,1,1,0,0,0,0,0,0,0),
+            (0,0,1,1,0,0,0,0,0,0,0,0),
+            (0,0,0,1,0,0,0,0,1,0,0,0),
+            (0,0,0,0,0,0,0,0,0,0,0,0),
+            (0,0,0,0,0,1,0,0,0,0,0,1),
+            (0,0,0,0,0,0,1,0,0,0,1,0),
+            (0,0,0,0,0,0,0,1,0,1,0,0),
+            (0,0,0,0,0,0,0,0,1,0,0,1),
+            (0,0,0,0,0,0,0,0,0,1,0,0),
+            (0,0,0,0,0,0,0,0,0,0,1,0),
+            (0,0,0,0,0,0,0,0,0,0,0,1));
+var
+  graphForm: TgraphForm;
+  PeakList:TPeakList;
+  x0,y0:integer;
+  gameState: boolean;
+  InitHeight, InitWidth:integer;
+  lsh, tsh: integer;
+
+implementation
+
+{$R *.dfm}
+
+procedure TgraphForm.ButtonRestartClick(Sender: TObject);
+var i:integer;
+begin
+for i := 1 to N do
+  begin
+  PeakList[i].status :=stBlue;
+  x0:= PeakList[i].x;
+  y0:= PeakList[i].y;
+  Image1.Canvas.Brush.Color := RGB(104,174,186);
+  Image1.Canvas.Ellipse(x0-R,Y0-R,X0+R,Y0+R)
+  end;
+button2.Visible:=False;
+button1.Visible:=False;
+end;
+
+procedure TgraphForm.Button1Click(Sender: TObject);
+var i:integer;
+    gameState1, gameState2, FinishedBool:Boolean;
+begin
+gameState:=true;
+gameState1 := true;
+gameState2 := true;
+FinishedBool := true;
+i:=1;
+while (i<=N) and (gameState) do
+  begin
+  if gameState1 then
+    if (Peaklist[i].Status <> Answer1[i]) then
+      gameState1:=False;
+  if gameState2 then
+    if (Peaklist[i].Status <> Answer2[i]) then
+      gameState2:=False;
+  if not (gameState1 or gameState2)  then
+    gameState:=False;
+
+  if Peaklist[i].Status = stBlue then
+    FinishedBool:=False;
+  inc(i);
+  end;
+if gameState then
+  begin
+  ShowMessage('Все правильно!');
+  button2.Visible:=true;
+  end
+else
+  begin
+  while (i<=N) and (FinishedBool) do
+    begin
+    if Peaklist[i].Status = stBlue then
+      FinishedBool:=False;
+    inc(i);
+    end;
+  if FinishedBool then
+    begin
+    ShowMessage('Попробуйте ещё');
+    button2.Visible:=true;
+    end
+  else
+    ShowMessage('Сначала нужно всё докрасить!');
+  end;
+end;
+
+procedure TgraphForm.FormCreate(Sender: TObject);
+var
+  i,j: Integer;
+  png: TPngImage;
+begin
+  png:= TPngImage(introIMG.Picture);
+  Splash := TSplash.Create(png);
+  //ïîêàçûâàåì Splash
+  Splash.Show(true);
+
+  InitHeight := Self.Height;
+  InitWidth := Self.Width;
+  for i := 1 to N do
+  begin
+    PeakList[i].x := level1[1,i] + Level1XShift;
+    PeakList[i].y := level1[2,i] + Level1YShift;
+  end;
+  Image1.Canvas.Pen.Width := 10;
+  Image1.Canvas.Pen.Color := RGB(199,183,188);
+  for i := 1 to N-1 do
+  begin
+    for j := 1 to N do
+    begin
+      //ShowMessage(IntToStr(i) + ' ' + IntToStr(j));
+      if BConnection[i,j] = 1 then
+      begin
+        Image1.Canvas.MoveTo(PeakList[i].x, PeakList[i].y);
+        Image1.Canvas.LineTo(PeakList[j].x, PeakList[j].y);
+
+      end;
+    end;
+  end;
+  {Image1.Canvas.MoveTo(PeakList[1].x, PeakList[1].y);
+  for i := 1 to 12 do
+  begin
+    PeakList[i].x := level1[1,i];
+    PeakList[i].y := level1[2,i];
+    Image1.Canvas.LineTo(PeakList[i].x, PeakList[i].y);
+  end;              }
+  Image1.Canvas.Brush.Color := RGB(104,174,186);
+  Image1.Canvas.Pen.Width := 0;
+
+  for i := 1 to N do
+  begin
+    Image1.Canvas.Ellipse(PeakList[i].x-R,PeakList[i].y-R,PeakList[i].x+R,PeakList[i].y+R);
+  end;
+
+
+  //Image1.Canvas.MoveTo(X0,Y0);
+  //Image1.Canvas.LineTo(x0+100, y0+100);
+  //Image1.Canvas.LineTo(x0+200, y0);
+  {Image1.Canvas.Brush.Color := clBlue;
+  Image1.Canvas.Ellipse(x0-R,Y0-R,X0+R,Y0+R);
+  Image1.Canvas.Ellipse(x0+200-R,Y0-R,X0+200+R,Y0+R);}
+
+
+  Sleep(2000);
+
+  Splash.Close;
+
+  //png.Free;
+end;
+
+procedure TgraphForm.FormDestroy(Sender: TObject);
+begin
+  Splash.Free;
+end;
+
+procedure TgraphForm.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if key = 122 then
+  begin
+    BorderStyle := bsNone;
+    WindowState := wsMaximized;
+  end;
+  if key = 27 then
+  begin
+    BorderStyle := bsSingle;
+    WindowState := wsNormal;
+  end;
+end;
+
+procedure TgraphForm.FormResize(Sender: TObject);
+begin
+  lsh := (Self.Width - InitWidth) div 2;
+  tsh := (Self.Height - InitHeight) div 2;
+  Invalidate;
+end;
+
+procedure TgraphForm.Image1MouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+var i:integer;
+begin
+Button1.Visible:=true;
+    //ShowMessage(IntToStr(x) + ' ' + IntToStr(y));
+    if  Button=mbLeft then
+      begin
+      Image1.Canvas.Brush.Color := clRed;
+      for i:=1 to N do
+        begin
+        if ((PeakList[i].x + lsh)-x)*((PeakList[i].x + lsh)-x) + ((PeakList[i].y + tsh)-y)*((PeakList[i].y + tsh)-y) <= R*R then
+          begin
+            x0:= PeakList[i].x;
+            y0:= PeakList[i].y;
+            PeakList[i].status :=stRed;
+            Image1.Canvas.Ellipse(x0-R,Y0-R,X0+R,Y0+R);
+          end;
+        end;
+
+      end
+    else if Button=mbRight then
+      begin
+      Image1.Canvas.Brush.Color := clBlack;
+      for i:=1 to N do
+        begin
+        if ((PeakList[i].x + lsh)-x)*((PeakList[i].x + lsh)-x) + ((PeakList[i].y + tsh)-y)*((PeakList[i].y + tsh)-y) <= R*R then
+          begin
+          x0:= PeakList[i].x;
+          y0:= PeakList[i].y;
+          PeakList[i].status :=stBlack;
+          Image1.Canvas.Ellipse(x0-R,Y0-R,X0+R,Y0+R);
+          end;
+        end;
+
+      end;
+
+
+end;
+
+procedure TgraphForm.N2Click(Sender: TObject);
+begin
+  Application.CreateForm(TForm1, Form1);
+  FORM1.SHOW
+end;
+
+
+
+
+end.

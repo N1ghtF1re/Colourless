@@ -4,7 +4,8 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, VcL.Menus, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls,SplashScreen, pngimage;
+  Vcl.Controls, VcL.Menus, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls,SplashScreen, pngimage,
+  Instructions;
 const
   R = 40;
   N = 12;
@@ -148,7 +149,7 @@ begin
   png:= TPngImage(introIMG.Picture);
   Splash := TSplash.Create(png);
   //ïîêàçûâàåì Splash
-  Splash.Show(false);
+  Splash.Show(true);
 
   InitHeight := Self.Height;
   InitWidth := Self.Width;
@@ -271,8 +272,8 @@ end;
 
 procedure TgraphForm.N2Click(Sender: TObject);
 begin
-Application.CreateForm(TInstruction, Instruction);
-FORM1.SHOW
+  Application.CreateForm(TForm1, Form1);
+  FORM1.SHOW
 end;
 
 
