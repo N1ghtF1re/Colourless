@@ -23,6 +23,7 @@ type
     pnlSidebar: TPanel;
     Button1: TButton;
     Button2: TButton;
+    Label1: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure Image1MouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
