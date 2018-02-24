@@ -30,6 +30,7 @@ type
     MainMenu1: TMainMenu;
     N1: TMenuItem;
     N2: TMenuItem;
+    N3: TMenuItem;
     procedure FormCreate(Sender: TObject);
     procedure Image1MouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
@@ -39,6 +40,7 @@ type
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormDestroy(Sender: TObject);
     procedure N2Click(Sender: TObject);
+    procedure N3Click(Sender: TObject);
   private
   splash: TSplash;
     { Private declarations }
@@ -276,7 +278,19 @@ begin
   FORM1.SHOW
 end;
 
-
-
+procedure TgraphForm.N3Click(Sender: TObject);
+var i:integer;
+begin
+for i := 1 to N do
+  begin
+  PeakList[i].status :=stBlue;
+  x0:= PeakList[i].x;
+  y0:= PeakList[i].y;
+  Image1.Canvas.Brush.Color := RGB(104,174,186);
+  Image1.Canvas.Ellipse(x0-R,Y0-R,X0+R,Y0+R)
+  end;
+button2.Visible:=False;
+button1.Visible:=False;
+end;
 
 end.

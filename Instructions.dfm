@@ -1,10 +1,10 @@
 object Form1: TForm1
   Left = 0
   Top = 0
-  Caption = 'Form1'
+  Caption = ' Help '
   ClientHeight = 320
   ClientWidth = 735
-  Color = clBtnFace
+  Color = clWhite
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
@@ -16,8 +16,9 @@ object Form1: TForm1
   object Image1: TImage
     Left = 0
     Top = 0
-    Width = 737
-    Height = 321
+    Width = 735
+    Height = 320
+    Align = alClient
     Picture.Data = {
       0954506E67496D61676589504E470D0A1A0A0000000D49484452000004E80000
       01D80806000000F77DD7E300000C28694343504943432050726F66696C650000
@@ -2924,5 +2925,7 @@ object Form1: TForm1
       840474000000009090800E0000000012FA1D4F117F112DE1EAF4000000004945
       4E44AE426082}
     Stretch = True
+    ExplicitWidth = 737
+    ExplicitHeight = 321
   end
 end

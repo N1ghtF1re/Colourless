@@ -2859,6 +2859,10 @@ object graphForm: TgraphForm
   object MainMenu1: TMainMenu
     object N1: TMenuItem
       Caption = #1053#1072#1089#1090#1088#1086#1081#1082#1080
+      object N3: TMenuItem
+        Caption = #1053#1086#1074#1072#1103' '#1048#1075#1088#1072
+        OnClick = N3Click
+      end
     end
     object N2: TMenuItem
       Caption = #1055#1086#1084#1086#1097#1100
