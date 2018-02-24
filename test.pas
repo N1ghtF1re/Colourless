@@ -102,9 +102,9 @@ if gameState then
   ShowMessage('You win')
 else
   begin
-  button2.Visible:=true;
   ShowMessage('Try again');
   end;
+  button2.Visible:=true;
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);
