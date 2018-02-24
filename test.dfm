@@ -25,9 +25,6 @@ object graphForm: TgraphForm
     Constraints.MinWidth = 526
     OnMouseUp = Image1MouseUp
     ExplicitLeft = -6
-    ExplicitTop = -8
-    ExplicitWidth = 789
-    ExplicitHeight = 701
   end
   object pnlSidebar: TPanel
     Left = 790
@@ -43,7 +40,7 @@ object graphForm: TgraphForm
       Left = 24
       Top = 88
       Width = 145
-      Height = 80
+      Height = 96
       Alignment = taCenter
       Caption = 
         #1063#1090#1086#1073#1099' '#1086#1082#1088#1072#1089#1080#1090#1100' '#1074' '#1082#1088#1072#1089#1085#1099#1081' '#1094#1074#1077#1090', '#1082#1083#1080#1082#1085#1080#1090#1077' '#1083#1077#1074#1086#1081' '#1082#1083#1072#1074#1080#1096#1077#1081' '#1084#1099#1096#1080'. '#1042' '#1095 +
@@ -55,6 +52,21 @@ object graphForm: TgraphForm
       Font.Style = [fsItalic]
       ParentFont = False
       WordWrap = True
+    end
+    object Label2: TLabel
+      Left = 24
+      Top = 174
+      Width = 138
+      Height = 13
+      Alignment = taCenter
+      Caption = '* '#1052#1086#1078#1085#1086' '#1082#1088#1072#1089#1080#1090#1100' '#1087#1086#1074#1090#1086#1088#1085#1086
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsItalic]
+      ParentFont = False
+      OnClick = Label2Click
     end
     object Button1: TButton
       Left = 24

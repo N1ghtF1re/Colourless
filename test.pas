@@ -24,12 +24,14 @@ type
     Button1: TButton;
     Button2: TButton;
     Label1: TLabel;
+    Label2: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure Image1MouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure ButtonRestartClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure FormResize(Sender: TObject);
+    procedure Label2Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -84,11 +86,12 @@ end;
 
 procedure TgraphForm.Button1Click(Sender: TObject);
 var i:integer;
-    gameState1, gameState2:Boolean;
+    gameState1, gameState2, FinishedBool:Boolean;
 begin
 gameState:=true;
 gameState1 := true;
 gameState2 := true;
+FinishedBool := true;
 i:=1;
 while (i<=N) and (gameState) do
   begin
@@ -100,15 +103,32 @@ while (i<=N) and (gameState) do
       gameState2:=False;
   if not (gameState1 or gameState2)  then
     gameState:=False;
+
+  if Peaklist[i].Status = stBlue then
+    FinishedBool:=False;
   inc(i);
   end;
 if gameState then
-  ShowMessage('Все правильно!')
+  begin
+  ShowMessage('Все правильно!');
+  button2.Visible:=true;
+  end
 else
   begin
-  ShowMessage('Попробуйте ещё');
+  while (i<=N) and (FinishedBool) do
+    begin
+    if Peaklist[i].Status = stBlue then
+      FinishedBool:=False;
+    inc(i);
+    end;
+  if FinishedBool then
+    begin
+    ShowMessage('Попробуйте ещё');
+    button2.Visible:=true;
+    end
+  else
+    ShowMessage('Сначала нужно всё докрасить!');
   end;
-  button2.Visible:=true;
 end;
 
 procedure TgraphForm.FormCreate(Sender: TObject);
@@ -204,4 +224,9 @@ Button1.Visible:=true;
 
 end;
 
-end.
+eprocedure TgraphForm.Label2Click(Sender: TObject);
+begin
+
+end;
+
+nd.
