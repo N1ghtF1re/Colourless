@@ -1,7 +1,7 @@
-object Form1: TForm1
+object graphForm: TgraphForm
   Left = 0
   Top = 0
-  Caption = 'Form1'
+  Caption = #1056#1072#1089#1082#1088#1072#1089#1082#1072' '#1075#1088#1072#1092#1072
   ClientHeight = 577
   ClientWidth = 975
   Color = clBtnFace
@@ -12,6 +12,7 @@ object Form1: TForm1
   Font.Style = []
   OldCreateOrder = False
   OnCreate = FormCreate
+  OnResize = FormResize
   PixelsPerInch = 96
   TextHeight = 13
   object Image1: TImage
@@ -42,7 +43,7 @@ object Form1: TForm1
       Left = 24
       Top = 88
       Width = 145
-      Height = 96
+      Height = 80
       Alignment = taCenter
       Caption = 
         #1063#1090#1086#1073#1099' '#1086#1082#1088#1072#1089#1080#1090#1100' '#1074' '#1082#1088#1072#1089#1085#1099#1081' '#1094#1074#1077#1090', '#1082#1083#1080#1082#1085#1080#1090#1077' '#1083#1077#1074#1086#1081' '#1082#1083#1072#1074#1080#1096#1077#1081' '#1084#1099#1096#1080'. '#1042' '#1095 +

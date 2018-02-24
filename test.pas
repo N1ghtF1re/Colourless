@@ -18,7 +18,7 @@ type
     status:TStatus;
   end;
   TPeakList = array[1..N] of TPeak;
-  TForm1 = class(TForm)
+  TgraphForm = class(TForm)
     Image1: TImage;
     pnlSidebar: TPanel;
     Button1: TButton;
@@ -29,6 +29,7 @@ type
       Shift: TShiftState; X, Y: Integer);
     procedure ButtonRestartClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
+    procedure FormResize(Sender: TObject);
   private
     { Private declarations }
   public
@@ -57,7 +58,7 @@ const
             (0,0,0,0,0,0,0,0,0,0,1,0),
             (0,0,0,0,0,0,0,0,0,0,0,1));
 var
-  Form1: TForm1;
+  graphForm: TgraphForm;
   PeakList:TPeakList;
   x0,y0:integer;
   gameState: boolean;
@@ -66,7 +67,7 @@ implementation
 
 {$R *.dfm}
 
-procedure TForm1.ButtonRestartClick(Sender: TObject);
+procedure TgraphForm.ButtonRestartClick(Sender: TObject);
 var i:integer;
 begin
 for i := 1 to N do
@@ -81,7 +82,7 @@ button2.Visible:=False;
 button1.Visible:=False;
 end;
 
-procedure TForm1.Button1Click(Sender: TObject);
+procedure TgraphForm.Button1Click(Sender: TObject);
 var i:integer;
     gameState1, gameState2:Boolean;
 begin
@@ -110,7 +111,7 @@ else
   button2.Visible:=true;
 end;
 
-procedure TForm1.FormCreate(Sender: TObject);
+procedure TgraphForm.FormCreate(Sender: TObject);
 var
   i,j: Integer;
 begin
@@ -120,6 +121,7 @@ begin
     PeakList[i].y := level1[2,i] + Level1YShift;
   end;
   Image1.Canvas.Pen.Width := 10;
+  Image1.Canvas.Pen.Color := RGB(199,183,188);
   for i := 1 to N-1 do
   begin
     for j := 1 to N do
@@ -140,8 +142,9 @@ begin
     PeakList[i].y := level1[2,i];
     Image1.Canvas.LineTo(PeakList[i].x, PeakList[i].y);
   end;              }
-  Image1.Canvas.Brush.Color := clBlue;
-  Image1.Canvas.Pen.Width := 1;
+  Image1.Canvas.Brush.Color := RGB(104,174,186);
+  Image1.Canvas.Pen.Width := 0;
+
   for i := 1 to N do
   begin
     Image1.Canvas.Ellipse(PeakList[i].x-R,PeakList[i].y-R,PeakList[i].x+R,PeakList[i].y+R);
@@ -157,7 +160,12 @@ begin
 
 end;
 
-procedure TForm1.Image1MouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+procedure TgraphForm.FormResize(Sender: TObject);
+begin
+  Invalidate;
+end;
+
+procedure TgraphForm.Image1MouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 var i:integer;
 begin
 Button1.Visible:=true;
