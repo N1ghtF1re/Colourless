@@ -1,4 +1,4 @@
-unit test;
+﻿unit test;
 
 interface
 
@@ -18,16 +18,20 @@ type
     status:TStatus;
   end;
   TPeakList = array[1..N] of TPeak;
-  TForm1 = class(TForm)
+  TgraphForm = class(TForm)
     Image1: TImage;
     pnlSidebar: TPanel;
     Button1: TButton;
     Button2: TButton;
+    Label1: TLabel;
+    Label2: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure Image1MouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure ButtonRestartClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
+    procedure FormResize(Sender: TObject);
+    procedure Label2Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -45,18 +49,18 @@ const
   const   // 2 3 4 5 6 7 8 9 0 1 2
 	BConnection:TBConnection1 =
            ((0,1,0,1,1,0,0,0,0,0,0,0),
-				    (0,0,1,1,0,0,0,0,0,0,0,0),
-				    (0,0,0,1,0,0,0,0,0,1,0,0),
-				    (0,0,0,0,0,0,0,0,0,0,0,0),
-				    (0,0,0,0,0,1,0,0,0,0,0,1),
-				    (0,0,0,0,0,0,1,0,0,0,1,0),
-				    (0,0,0,0,0,0,0,1,0,1,0,0),
-				    (0,0,0,0,0,0,0,0,1,0,0,1),
-				    (0,0,0,0,0,0,0,0,0,1,0,0),
-				    (0,0,0,0,0,0,0,0,0,0,1,0),
-				    (0,0,0,0,0,0,0,0,0,0,0,1));
+            (0,0,1,1,0,0,0,0,0,0,0,0),
+            (0,0,0,1,0,0,0,0,1,0,0,0),
+            (0,0,0,0,0,0,0,0,0,0,0,0),
+            (0,0,0,0,0,1,0,0,0,0,0,1),
+            (0,0,0,0,0,0,1,0,0,0,1,0),
+            (0,0,0,0,0,0,0,1,0,1,0,0),
+            (0,0,0,0,0,0,0,0,1,0,0,1),
+            (0,0,0,0,0,0,0,0,0,1,0,0),
+            (0,0,0,0,0,0,0,0,0,0,1,0),
+            (0,0,0,0,0,0,0,0,0,0,0,1));
 var
-  Form1: TForm1;
+  graphForm: TgraphForm;
   PeakList:TPeakList;
   x0,y0:integer;
   gameState: boolean;
@@ -65,7 +69,7 @@ implementation
 
 {$R *.dfm}
 
-procedure TForm1.ButtonRestartClick(Sender: TObject);
+procedure TgraphForm.ButtonRestartClick(Sender: TObject);
 var i:integer;
 begin
 for i := 1 to N do
@@ -73,16 +77,21 @@ for i := 1 to N do
   PeakList[i].status :=stBlue;
   x0:= PeakList[i].x;
   y0:= PeakList[i].y;
+  image1.Canvas.Brush.Color := clBlue;
   Image1.Canvas.Ellipse(x0-R,Y0-R,X0+R,Y0+R)
   end;
 button2.Visible:=False;
+button1.Visible:=False;
 end;
 
-procedure TForm1.Button1Click(Sender: TObject);
+procedure TgraphForm.Button1Click(Sender: TObject);
 var i:integer;
-    gameState1, gameState2:Boolean;
+    gameState1, gameState2, FinishedBool:Boolean;
 begin
 gameState:=true;
+gameState1 := true;
+gameState2 := true;
+FinishedBool := true;
 i:=1;
 while (i<=N) and (gameState) do
   begin
@@ -94,35 +103,55 @@ while (i<=N) and (gameState) do
       gameState2:=False;
   if not (gameState1 or gameState2)  then
     gameState:=False;
+
+  if Peaklist[i].Status = stBlue then
+    FinishedBool:=False;
   inc(i);
   end;
 if gameState then
-  ShowMessage('You win')
+  begin
+  ShowMessage('Все правильно!');
+  button2.Visible:=true;
+  end
 else
   begin
-  button2.Visible:=true;
-  ShowMessage('Try again');
+  while (i<=N) and (FinishedBool) do
+    begin
+    if Peaklist[i].Status = stBlue then
+      FinishedBool:=False;
+    inc(i);
+    end;
+  if FinishedBool then
+    begin
+    ShowMessage('Попробуйте ещё');
+    button2.Visible:=true;
+    end
+  else
+    ShowMessage('Сначала нужно всё докрасить!');
   end;
 end;
 
-procedure TForm1.FormCreate(Sender: TObject);
+procedure TgraphForm.FormCreate(Sender: TObject);
 var
   i,j: Integer;
 begin
-  for i := 1 to 12 do
+  for i := 1 to N do
   begin
     PeakList[i].x := level1[1,i] + Level1XShift;
     PeakList[i].y := level1[2,i] + Level1YShift;
   end;
   Image1.Canvas.Pen.Width := 10;
-  for i := 2 to 12 do
+  Image1.Canvas.Pen.Color := RGB(199,183,188);
+  for i := 1 to N-1 do
   begin
-    for j := 1 to 12 do
+    for j := 1 to N do
     begin
+      //ShowMessage(IntToStr(i) + ' ' + IntToStr(j));
       if BConnection[i,j] = 1 then
       begin
         Image1.Canvas.MoveTo(PeakList[i].x, PeakList[i].y);
         Image1.Canvas.LineTo(PeakList[j].x, PeakList[j].y);
+
       end;
     end;
   end;
@@ -133,9 +162,10 @@ begin
     PeakList[i].y := level1[2,i];
     Image1.Canvas.LineTo(PeakList[i].x, PeakList[i].y);
   end;              }
-  Image1.Canvas.Brush.Color := clBlue;
-  Image1.Canvas.Pen.Width := 1;
-  for i := 1 to 12 do
+  Image1.Canvas.Brush.Color := RGB(104,174,186);
+  Image1.Canvas.Pen.Width := 0;
+
+  for i := 1 to N do
   begin
     Image1.Canvas.Ellipse(PeakList[i].x-R,PeakList[i].y-R,PeakList[i].x+R,PeakList[i].y+R);
   end;
@@ -150,9 +180,15 @@ begin
 
 end;
 
-procedure TForm1.Image1MouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+procedure TgraphForm.FormResize(Sender: TObject);
+begin
+  Invalidate;
+end;
+
+procedure TgraphForm.Image1MouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 var i:integer;
 begin
+Button1.Visible:=true;
     //ShowMessage(IntToStr(x) + ' ' + IntToStr(y));
     if  Button=mbLeft then
       begin
@@ -188,4 +224,9 @@ begin
 
 end;
 
-end.
+eprocedure TgraphForm.Label2Click(Sender: TObject);
+begin
+
+end;
+
+nd.

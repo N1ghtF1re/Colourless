@@ -31,7 +31,6 @@ type
     procedure ButtonRestartClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure FormResize(Sender: TObject);
-    procedure Label2Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -224,9 +223,4 @@ Button1.Visible:=true;
 
 end;
 
-eprocedure TgraphForm.Label2Click(Sender: TObject);
-begin
-
-end;
-
-nd.
+end.
