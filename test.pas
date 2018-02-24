@@ -35,10 +35,7 @@ type
   end;
 
 const
-
-  Level1:array[1..2, 1..N] of integer =
-  ((180,300,420,300,60,180,300,420,540,420,300,180),
-  (110,40,110,200,400,320,320,320,400,500,500,500));
+  Level1:array[1..2, 1..N] of integer = ((180,300,420,300,60,180,300,420,540,420,300,180),(110,40,110,200,400,320,320,320,400,500,500,500));
   Level1XShift = 100;
   Level1YShift = 20;
   Answer1:TArray =
@@ -114,10 +111,13 @@ begin
   Image1.Canvas.Pen.Width := 10;
   for i := 2 to 12 do
   begin
-    for j := i-1 to 12 do
+    for j := 1 to 12 do
     begin
       if BConnection[i,j] = 1 then
-
+      begin
+        Image1.Canvas.MoveTo(PeakList[i].x, PeakList[i].y);
+        Image1.Canvas.LineTo(PeakList[j].x, PeakList[j].y);
+      end;
     end;
   end;
   {Image1.Canvas.MoveTo(PeakList[1].x, PeakList[1].y);
@@ -155,9 +155,9 @@ begin
         begin
         if (PeakList[i].x-x)*(PeakList[i].x-x) + (PeakList[i].y-y)*(PeakList[i].y-y) <= R*R then
           begin
-          x0:= PeakList[i].x;
-          y0:= PeakList[i].y;
-          PeakList[i].status :=stRed;
+            x0:= PeakList[i].x;
+            y0:= PeakList[i].y;
+            PeakList[i].status :=stRed;
           end;
         end;
       end
