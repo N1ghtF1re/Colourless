@@ -1,4 +1,4 @@
-unit test;
+﻿unit test;
 
 interface
 
@@ -78,6 +78,7 @@ for i := 1 to N do
   Image1.Canvas.Ellipse(x0-R,Y0-R,X0+R,Y0+R)
   end;
 button2.Visible:=False;
+button1.Visible:=False;
 end;
 
 procedure TForm1.Button1Click(Sender: TObject);
@@ -101,10 +102,10 @@ while (i<=N) and (gameState) do
   inc(i);
   end;
 if gameState then
-  ShowMessage('You win')
+  ShowMessage('Все правильно!')
 else
   begin
-  ShowMessage('Try again');
+  ShowMessage('Попробуйте ещё');
   end;
   button2.Visible:=true;
 end;
@@ -159,6 +160,7 @@ end;
 procedure TForm1.Image1MouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 var i:integer;
 begin
+Button1.Visible:=true;
     //ShowMessage(IntToStr(x) + ' ' + IntToStr(y));
     if  Button=mbLeft then
       begin
