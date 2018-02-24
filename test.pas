@@ -8,8 +8,10 @@ uses
 const
   R = 40;
   N = 12;
+
 type
   TStatus = (stBlue, stRed, stBlack);
+  TArray = array [1..N] of Tstatus;
   TPeak = record
     x,y:integer;
     status:TStatus;
@@ -24,17 +26,26 @@ type
     procedure Image1MouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure ButtonRestartClick(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
   private
     { Private declarations }
   public
     { Public declarations }
   end;
+
 const
-Level1:array[1..2, 1..12] of integer = ((180,300,420,300,60,180,300,420,540,420,300,180),(110,40,110,200,400,320,320,320,400,500,500,500));
+  Level1:array[1..2, 1..N] of integer = ((180,300,420,300,60,180,300,420,540,420,300,180),(110,40,110,200,400,320,320,320,400,500,500,500));
+  Level1XShift = 100;
+  Level1YShift = 20;
+  Answer1:TArray =
+  (stRed,stBlue,stBlue,stBlue,stRed,stBlue,stBlue,stBlue,stRed,stRed,stBlue,stBlue);
+  Answer2:TArray =
+  (stBlue,stBlue,stRed,stBlue,stRed,stRed,stBlue,stBlue,stRed,stBlue,stBlue,stBlue);
 var
   Form1: TForm1;
   PeakList:TPeakList;
   x0,y0:integer;
+  gameState: boolean;
 
 implementation
 
@@ -53,16 +64,59 @@ for i := 1 to N do
 button2.Visible:=False;
 end;
 
-Procedure TForm1.FormCreate(Sender: TObject);
+procedure TForm1.Button1Click(Sender: TObject);
+var i:integer;
+
 begin
-  Image1.Canvas.MoveTo(X0,Y0);
+gameState:=true;
+  for i := 1 to 12 do
+    if (Peaklist[i].Status <> Answer1[i])
+      then
+       gameState:=False;
+       if not(gameState) then
+       begin
+        gameState:=True;
+        for i := 1 to 12 do
+           if (Peaklist[i].Status <> Answer2[i]) then
+        gameState:=False;
+       end;
+       if gameState then
+       ShowMessage('You win');
+
+end;
+
+procedure TForm1.FormCreate(Sender: TObject);
+var
+  i: Integer;
+begin
+  for i := 1 to N do
+  begin
+    PeakList[i].x := level1[1,i] + Level1XShift;
+    PeakList[i].y := level1[2,i] + Level1YShift;
+  end;
   Image1.Canvas.Pen.Width := 10;
-  Image1.Canvas.LineTo(x0+100, y0+100);
-  Image1.Canvas.LineTo(x0+200, y0);
-  Image1.Canvas.Pen.Width := 1;
+  Image1.Canvas.MoveTo(PeakList[1].x, PeakList[1].y);
+  for i := 1 to N do
+  begin
+    PeakList[i].x := level1[1,i];
+    PeakList[i].y := level1[2,i];
+    Image1.Canvas.LineTo(PeakList[i].x, PeakList[i].y);
+  end;
   Image1.Canvas.Brush.Color := clBlue;
+  Image1.Canvas.Pen.Width := 1;
+  for i := 1 to N do
+  begin
+    Image1.Canvas.Ellipse(PeakList[i].x-R,PeakList[i].y-R,PeakList[i].x+R,PeakList[i].y+R);
+  end;
+
+
+  //Image1.Canvas.MoveTo(X0,Y0);
+  //Image1.Canvas.LineTo(x0+100, y0+100);
+  //Image1.Canvas.LineTo(x0+200, y0);
+  {Image1.Canvas.Brush.Color := clBlue;
   Image1.Canvas.Ellipse(x0-R,Y0-R,X0+R,Y0+R);
-  Image1.Canvas.Ellipse(x0+200-R,Y0-R,X0+200+R,Y0+R);
+  Image1.Canvas.Ellipse(x0+200-R,Y0-R,X0+200+R,Y0+R);}
+
 end;
 
 procedure TForm1.Image1MouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
