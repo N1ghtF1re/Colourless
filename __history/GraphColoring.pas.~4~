@@ -64,8 +64,6 @@ var
   PeakList:TPeakList;
   x0,y0:integer;
   gameState: boolean;
-  InitHeight, InitWidth:integer;
-  lsh, tsh: integer;
 
 implementation
 
@@ -137,8 +135,6 @@ procedure TgraphForm.FormCreate(Sender: TObject);
 var
   i,j: Integer;
 begin
-  InitHeight := Self.Height;
-  InitWidth := Self.Width;
   for i := 1 to N do
   begin
     PeakList[i].x := level1[1,i] + Level1XShift;
@@ -187,13 +183,11 @@ end;
 procedure TgraphForm.FormKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-  //ShowMessage(IntToStr(key));
+  ShowMessage(IntToStr(key));
 end;
 
 procedure TgraphForm.FormResize(Sender: TObject);
 begin
-  lsh := (Self.Width - InitWidth) div 2;
-  tsh := (Self.Height - InitHeight) div 2;
   Invalidate;
 end;
 
@@ -207,7 +201,7 @@ Button1.Visible:=true;
       Image1.Canvas.Brush.Color := clRed;
       for i:=1 to N do
         begin
-        if ((PeakList[i].x + lsh)-x)*((PeakList[i].x + lsh)-x) + ((PeakList[i].y + tsh)-y)*((PeakList[i].y + tsh)-y) <= R*R then
+        if (PeakList[i].x-x)*(PeakList[i].x-x) + (PeakList[i].y-y)*(PeakList[i].y-y) <= R*R then
           begin
             x0:= PeakList[i].x;
             y0:= PeakList[i].y;
@@ -222,7 +216,7 @@ Button1.Visible:=true;
       Image1.Canvas.Brush.Color := clBlack;
       for i:=1 to N do
         begin
-        if ((PeakList[i].x + lsh)-x)*((PeakList[i].x + lsh)-x) + ((PeakList[i].y + tsh)-y)*((PeakList[i].y + tsh)-y) <= R*R then
+        if (PeakList[i].x-x)*(PeakList[i].x-x) + (PeakList[i].y-y)*(PeakList[i].y-y) <= R*R then
           begin
           x0:= PeakList[i].x;
           y0:= PeakList[i].y;
