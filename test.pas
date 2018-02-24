@@ -98,7 +98,8 @@ gameState:=true;
         gameState:=False;
        end;
        if gameState then
-       ShowMessage('You win');
+       ShowMessage('You win')
+       else button2.Visible:=true;
 
 end;
 
