@@ -37,6 +37,7 @@ type
     procedure FormResize(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormDestroy(Sender: TObject);
+    procedure N2Click(Sender: TObject);
   private
   splash: TSplash;
     { Private declarations }
@@ -268,4 +269,13 @@ Button1.Visible:=true;
 
 end;
 
-nd.
+procedure TgraphForm.N2Click(Sender: TObject);
+begin
+Application.CreateForm(TInstruction, Instruction);
+FORM1.SHOW
+end;
+
+
+
+
+end.

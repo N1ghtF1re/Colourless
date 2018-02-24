@@ -2804,6 +2804,7 @@ object graphForm: TgraphForm
     ParentBackground = False
     ShowCaption = False
     TabOrder = 0
+    ExplicitHeight = 621
     object Label1: TLabel
       Left = 24
       Top = 88
@@ -2862,7 +2863,6 @@ object graphForm: TgraphForm
     end
     object N2: TMenuItem
       Caption = #1055#1086#1084#1086#1097#1100
-      OnClick = N2Click
     end
   end
 end
