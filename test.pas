@@ -80,23 +80,29 @@ end;
 
 procedure TForm1.Button1Click(Sender: TObject);
 var i:integer;
-
+    gameState1, gameState2:Boolean;
 begin
 gameState:=true;
-  for i := 1 to 12 do
-    if (Peaklist[i].Status <> Answer1[i])
-      then
-       gameState:=False;
-       if not(gameState) then
-       begin
-        gameState:=True;
-        for i := 1 to 12 do
-           if (Peaklist[i].Status <> Answer2[i]) then
-        gameState:=False;
-       end;
-       if gameState then
-       ShowMessage('You win');
-
+i:=1;
+while (i<=N) and (gameState) do
+  begin
+  if gameState1 then
+    if (Peaklist[i].Status <> Answer1[i]) then
+      gameState1:=False;
+  if gameState2 then
+    if (Peaklist[i].Status <> Answer2[i]) then
+      gameState2:=False;
+  if not (gameState1 or gameState2)  then
+    gameState:=False;
+  inc(i);
+  end;
+if gameState then
+  ShowMessage('You win')
+else
+  begin
+  button2.Visible:=true;
+  ShowMessage('Try again');
+  end;
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);

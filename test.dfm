@@ -2,7 +2,7 @@ object Form1: TForm1
   Left = 0
   Top = 0
   Caption = 'Form1'
-  ClientHeight = 858
+  ClientHeight = 781
   ClientWidth = 974
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -18,7 +18,7 @@ object Form1: TForm1
     Left = 0
     Top = 0
     Width = 789
-    Height = 858
+    Height = 781
     Align = alClient
     Constraints.MinHeight = 412
     Constraints.MinWidth = 526
@@ -31,7 +31,7 @@ object Form1: TForm1
     Left = 789
     Top = 0
     Width = 185
-    Height = 858
+    Height = 781
     Align = alRight
     Color = clInfoBk
     ParentBackground = False
