@@ -35,29 +35,26 @@ type
   end;
 
 const
-
-  Level1:array[1..2, 1..N] of integer =
-  ((180,300,420,300,60,180,300,420,540,420,300,180),
-  (110,40,110,200,400,320,320,320,400,500,500,500));
+  Level1:array[1..2, 1..N] of integer = ((180,300,420,300,60,180,300,420,540,420,300,180),(110,40,110,200,400,320,320,320,400,500,500,500));
   Level1XShift = 100;
   Level1YShift = 20;
   Answer1:TArray =
-  (stRed,stBlue,stBlue,stBlue,stRed,stBlue,stBlue,stBlue,stRed,stRed,stBlue,stBlue);
+  (stBlack,stRed,stRed,stRed,stBlack,stRed,stRed,stRed,stBlack,stBlack,stRed,stRed);
   Answer2:TArray =
-  (stBlue,stBlue,stRed,stBlue,stRed,stRed,stBlue,stBlue,stRed,stBlue,stBlue,stBlue);
+  (stRed,stRed,stBlack,stRed,stBlack,stBlack,stRed,stRed,stBlack,stRed,stRed,stRed);
   const   // 2 3 4 5 6 7 8 9 0 1 2
 	BConnection:TBConnection1 =
            ((0,1,0,1,1,0,0,0,0,0,0,0),
-				    (0,0,1,1,0,0,0,0,0,0,0,0),
-				    (0,0,0,1,0,0,0,0,0,1,0,0),
-				    (0,0,0,0,0,0,0,0,0,0,0,0),
-				    (0,0,0,0,0,1,0,0,0,0,0,1),
-				    (0,0,0,0,0,0,1,0,0,0,1,0),
-				    (0,0,0,0,0,0,0,1,0,1,0,0),
-				    (0,0,0,0,0,0,0,0,1,0,0,1),
-				    (0,0,0,0,0,0,0,0,0,1,0,0),
-				    (0,0,0,0,0,0,0,0,0,0,1,0),
-				    (0,0,0,0,0,0,0,0,0,0,0,1));
+            (0,0,1,1,0,0,0,0,0,0,0,0),
+            (0,0,0,1,0,0,0,0,1,0,0,0),
+            (0,0,0,0,0,0,0,0,0,0,0,0),
+            (0,0,0,0,0,1,0,0,0,0,0,1),
+            (0,0,0,0,0,0,1,0,0,0,1,0),
+            (0,0,0,0,0,0,0,1,0,1,0,0),
+            (0,0,0,0,0,0,0,0,1,0,0,1),
+            (0,0,0,0,0,0,0,0,0,1,0,0),
+            (0,0,0,0,0,0,0,0,0,0,1,0),
+            (0,0,0,0,0,0,0,0,0,0,0,1));
 var
   Form1: TForm1;
   PeakList:TPeakList;
@@ -83,41 +80,54 @@ end;
 
 procedure TForm1.Button1Click(Sender: TObject);
 var i:integer;
-
+    gameState1, gameState2:Boolean;
 begin
 gameState:=true;
-  for i := 1 to 12 do
-    if (Peaklist[i].Status <> Answer1[i])
-      then
-       gameState:=False;
-       if not(gameState) then
-       begin
-        gameState:=True;
-        for i := 1 to 12 do
-           if (Peaklist[i].Status <> Answer2[i]) then
-        gameState:=False;
-       end;
-       if gameState then
-       ShowMessage('You win');
-
+gameState1 := true;
+gameState2 := true;
+i:=1;
+while (i<=N) and (gameState) do
+  begin
+  if gameState1 then
+    if (Peaklist[i].Status <> Answer1[i]) then
+      gameState1:=False;
+  if gameState2 then
+    if (Peaklist[i].Status <> Answer2[i]) then
+      gameState2:=False;
+  if not (gameState1 or gameState2)  then
+    gameState:=False;
+  inc(i);
+  end;
+if gameState then
+  ShowMessage('You win')
+else
+  begin
+  ShowMessage('Try again');
+  end;
+  button2.Visible:=true;
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);
 var
   i,j: Integer;
 begin
-  for i := 1 to 12 do
+  for i := 1 to N do
   begin
     PeakList[i].x := level1[1,i] + Level1XShift;
     PeakList[i].y := level1[2,i] + Level1YShift;
   end;
   Image1.Canvas.Pen.Width := 10;
-  for i := 2 to 12 do
+  for i := 1 to N-1 do
   begin
-    for j := i-1 to 12 do
+    for j := 1 to N do
     begin
+      //ShowMessage(IntToStr(i) + ' ' + IntToStr(j));
       if BConnection[i,j] = 1 then
+      begin
+        Image1.Canvas.MoveTo(PeakList[i].x, PeakList[i].y);
+        Image1.Canvas.LineTo(PeakList[j].x, PeakList[j].y);
 
+      end;
     end;
   end;
   {Image1.Canvas.MoveTo(PeakList[1].x, PeakList[1].y);
@@ -129,7 +139,7 @@ begin
   end;              }
   Image1.Canvas.Brush.Color := clBlue;
   Image1.Canvas.Pen.Width := 1;
-  for i := 1 to 12 do
+  for i := 1 to N do
   begin
     Image1.Canvas.Ellipse(PeakList[i].x-R,PeakList[i].y-R,PeakList[i].x+R,PeakList[i].y+R);
   end;
@@ -155,11 +165,13 @@ begin
         begin
         if (PeakList[i].x-x)*(PeakList[i].x-x) + (PeakList[i].y-y)*(PeakList[i].y-y) <= R*R then
           begin
-          x0:= PeakList[i].x;
-          y0:= PeakList[i].y;
-          PeakList[i].status :=stRed;
+            x0:= PeakList[i].x;
+            y0:= PeakList[i].y;
+            PeakList[i].status :=stRed;
+            Image1.Canvas.Ellipse(x0-R,Y0-R,X0+R,Y0+R);
           end;
         end;
+
       end
     else if Button=mbRight then
       begin
@@ -171,10 +183,12 @@ begin
           x0:= PeakList[i].x;
           y0:= PeakList[i].y;
           PeakList[i].status :=stBlack;
+          Image1.Canvas.Ellipse(x0-R,Y0-R,X0+R,Y0+R);
           end;
         end;
+
       end;
-    Image1.Canvas.Ellipse(x0-R,Y0-R,X0+R,Y0+R);
+
 
 end;
 
