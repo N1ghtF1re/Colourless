@@ -5,36 +5,27 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls;
-const
-  R = 40;
-  N = 12;
 
 type
   TStatus = (stBlue, stRed, stBlack);
-  TArray = array [1..N] of Tstatus;
   TPeak = record
     x,y:integer;
     status:TStatus;
   end;
-  TPeakList = array[1..N] of TPeak;
+  TPeakList = array[1..12] of TPeak;
   TForm1 = class(TForm)
     Image1: TImage;
     pnlSidebar: TPanel;
     Button1: TButton;
-    Button2: TButton;
     procedure FormCreate(Sender: TObject);
     procedure Image1MouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
-    procedure ButtonRestartClick(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
   private
     { Private declarations }
   public
     { Public declarations }
   end;
-
 const
-<<<<<<< HEAD
   x0 = 40;
   y0 = 40;
   R = 40;
@@ -42,64 +33,16 @@ const
   Level1:array[1..2, 1..12] of integer = ((180,300,420,300,60,180,300,420,540,420,300,180),(110,40,110,200,400,320,320,320,400,500,500,500));
   Level1XShift = 100;
   Level1YShift = 20;
-=======
-  Level1:array[1..2, 1..N] of integer = ((180,300,420,300,60,180,300,420,540,420,300,180),(110,40,110,200,400,320,320,320,400,500,500,500));
-  Level1XShift = 100;
-  Level1YShift = 20;
-  Answer1:TArray =
-  (stRed,stBlue,stBlue,stBlue,stRed,stBlue,stBlue,stBlue,stRed,stRed,stBlue,stBlue);
-  Answer2:TArray =
-  (stBlue,stBlue,stRed,stBlue,stRed,stRed,stBlue,stBlue,stRed,stBlue,stBlue,stBlue);
->>>>>>> 4e2bbef02194dc4b863d26a4d166e969ed0644aa
 var
   Form1: TForm1;
   PeakList:TPeakList;
-  x0,y0:integer;
-  gameState: boolean;
+
 
 implementation
 
 {$R *.dfm}
 
-procedure TForm1.ButtonRestartClick(Sender: TObject);
-var i:integer;
-begin
-for i := 1 to N do
-  begin
-  PeakList[i].status :=stBlue;
-  x0:= PeakList[i].x;
-  y0:= PeakList[i].y;
-  Image1.Canvas.Ellipse(x0-R,Y0-R,X0+R,Y0+R)
-  end;
-button2.Visible:=False;
-end;
-
-procedure TForm1.Button1Click(Sender: TObject);
-var i:integer;
-
-begin
-gameState:=true;
-  for i := 1 to n do
-    if (Peaklist[i].Status <> Answer1[i])
-      then
-       gameState:=False;
-       if not(gameState) then
-       begin
-        gameState:=True;
-        for i := 1 to N do
-           if (Peaklist[i].Status <> Answer2[i]) then
-        gameState:=False;
-       end;
-       if gameState then
-       ShowMessage('You win')
-       else
-       button2.Visible:=true;
-
-
-end;
-
 procedure TForm1.FormCreate(Sender: TObject);
-<<<<<<< HEAD
 var
   i: Integer;
 begin
@@ -131,83 +74,20 @@ begin
   Image1.Canvas.Ellipse(x0-R,Y0-R,X0+R,Y0+R);
   Image1.Canvas.Ellipse(x0+200-R,Y0-R,X0+200+R,Y0+R);}
 
-=======
-var
-  i: Integer;
-begin
-  for i := 1 to N do
-  begin
-    PeakList[i].x := level1[1,i] + Level1XShift;
-    PeakList[i].y := level1[2,i] + Level1YShift;
-    PeakList[i].status := stBlue;
-  end;
-  Image1.Canvas.Pen.Width := 10;
-  Image1.Canvas.MoveTo(PeakList[1].x, PeakList[1].y);
-  for i := 1 to N do
-  begin
-    PeakList[i].x := level1[1,i];
-    PeakList[i].y := level1[2,i];
-    Image1.Canvas.LineTo(PeakList[i].x, PeakList[i].y);
-  end;
-  Image1.Canvas.Brush.Color := clBlue;
-  Image1.Canvas.Pen.Width := 1;
-  for i := 1 to N do
-  begin
-    Image1.Canvas.Ellipse(PeakList[i].x-R,PeakList[i].y-R,PeakList[i].x+R,PeakList[i].y+R);
-  end;
-
-
-  //Image1.Canvas.MoveTo(X0,Y0);
-  //Image1.Canvas.LineTo(x0+100, y0+100);
-  //Image1.Canvas.LineTo(x0+200, y0);
-  {Image1.Canvas.Brush.Color := clBlue;
-  Image1.Canvas.Ellipse(x0-R,Y0-R,X0+R,Y0+R);
-  Image1.Canvas.Ellipse(x0+200-R,Y0-R,X0+200+R,Y0+R);}
-
->>>>>>> 4e2bbef02194dc4b863d26a4d166e969ed0644aa
 end;
 
-procedure TForm1.Image1MouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-var i:integer;
+procedure TForm1.Image1MouseUp(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
 begin
-<<<<<<< HEAD
   {if (((X0-x)*(X0-x) + (Y0-y)*(Y0-y) < R*R)) then
   begin
-=======
->>>>>>> 4e2bbef02194dc4b863d26a4d166e969ed0644aa
     //ShowMessage(IntToStr(x) + ' ' + IntToStr(y));
     if  Button=mbLeft then
-      begin
-      Image1.Canvas.Brush.Color := clRed;
-      for i:=1 to N do
-        begin
-        if (PeakList[i].x-x)*(PeakList[i].x-x) + (PeakList[i].y-y)*(PeakList[i].y-y) <= R*R then
-          begin
-          x0:= PeakList[i].x;
-          y0:= PeakList[i].y;
-          PeakList[i].status :=stRed;
-          end;
-        end;
-      end
+      Image1.Canvas.Brush.Color := clRed
     else if Button=mbRight then
-      begin
       Image1.Canvas.Brush.Color := clBlack;
-      for i:=1 to N do
-        begin
-        if (PeakList[i].x-x)*(PeakList[i].x-x) + (PeakList[i].y-y)*(PeakList[i].y-y) <= R*R then
-          begin
-          x0:= PeakList[i].x;
-          y0:= PeakList[i].y;
-          PeakList[i].status :=stBlack;
-          end;
-        end;
-      end;
     Image1.Canvas.Ellipse(x0-R,Y0-R,X0+R,Y0+R);
-<<<<<<< HEAD
   end;   }
-=======
-
->>>>>>> 4e2bbef02194dc4b863d26a4d166e969ed0644aa
 end;
 
 end.
