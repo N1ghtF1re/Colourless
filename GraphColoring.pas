@@ -4,7 +4,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls,SplashScreen, pngimage;
+  Vcl.Controls, VcL.Menus, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls,SplashScreen, pngimage;
 const
   R = 40;
   N = 12;
@@ -26,6 +26,9 @@ type
     Label1: TLabel;
     Label2: TLabel;
     introIMG: TImage;
+    MainMenu1: TMainMenu;
+    N1: TMenuItem;
+    N2: TMenuItem;
     procedure FormCreate(Sender: TObject);
     procedure Image1MouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
@@ -265,4 +268,4 @@ Button1.Visible:=true;
 
 end;
 
-end.
+nd.

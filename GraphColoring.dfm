@@ -2,7 +2,7 @@ object graphForm: TgraphForm
   Left = 0
   Top = 0
   Caption = #1056#1072#1089#1082#1088#1072#1089#1082#1072' '#1075#1088#1072#1092#1072' - '#1044#1045#1052#1054
-  ClientHeight = 621
+  ClientHeight = 641
   ClientWidth = 975
   Color = clBtnHighlight
   Font.Charset = DEFAULT_CHARSET
@@ -10,6 +10,7 @@ object graphForm: TgraphForm
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
+  Menu = MainMenu1
   OldCreateOrder = False
   OnCreate = FormCreate
   OnDestroy = FormDestroy
@@ -21,7 +22,7 @@ object graphForm: TgraphForm
     Left = 0
     Top = 0
     Width = 790
-    Height = 621
+    Height = 641
     Align = alClient
     Center = True
     Constraints.MinHeight = 621
@@ -2797,12 +2798,13 @@ object graphForm: TgraphForm
     Left = 790
     Top = 0
     Width = 185
-    Height = 621
+    Height = 641
     Align = alRight
     Color = clInfoBk
     ParentBackground = False
     ShowCaption = False
     TabOrder = 0
+    ExplicitHeight = 621
     object Label1: TLabel
       Left = 24
       Top = 88
@@ -2853,6 +2855,14 @@ object graphForm: TgraphForm
       TabOrder = 1
       Visible = False
       OnClick = ButtonRestartClick
+    end
+  end
+  object MainMenu1: TMainMenu
+    object N1: TMenuItem
+      Caption = #1053#1072#1089#1090#1088#1086#1081#1082#1080
+    end
+    object N2: TMenuItem
+      Caption = #1055#1086#1084#1086#1097#1100
     end
   end
 end

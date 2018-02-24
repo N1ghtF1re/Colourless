@@ -2,7 +2,7 @@ program Project1;
 
 uses
   Vcl.Forms,
-  GraphColoring in 'GraphColoring.pas' {graphForm};
+ Instructions in 'Instructions.pas' {graphForm},  GraphColoring in 'GraphColoring.pas' {graphForm};
 
 {$R *.res}
 
