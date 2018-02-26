@@ -2,7 +2,7 @@ object graphForm: TgraphForm
   Left = 0
   Top = 0
   Caption = #1056#1072#1089#1082#1088#1072#1089#1082#1072' '#1075#1088#1072#1092#1072' - '#1044#1045#1052#1054
-  ClientHeight = 541
+  ClientHeight = 521
   ClientWidth = 975
   Color = clBtnHighlight
   Font.Charset = DEFAULT_CHARSET
@@ -2798,7 +2798,7 @@ object graphForm: TgraphForm
     Left = 790
     Top = 0
     Width = 185
-    Height = 541
+    Height = 521
     Align = alRight
     Color = clInfoBk
     ParentBackground = False

@@ -347,23 +347,12 @@ begin
     end;
   end;
 
-
-
-  {Image1.Canvas.MoveTo(PeakList[1].x, PeakList[1].y);
-  for i := 1 to 12 do
-  begin
-    PeakList[i].x := level1[1,i];
-    PeakList[i].y := level1[2,i];
-    Image1.Canvas.LineTo(PeakList[i].x, PeakList[i].y);
-  end;              }
   Image1.Canvas.Brush.Color := RGB(104,174,186);
   Image1.Canvas.Pen.Width := 0;
 
   for i := 1 to N do
   begin
     Image1.Canvas.Ellipse(PeakList[i].x-R,PeakList[i].y-R,PeakList[i].x+R,PeakList[i].y+R);
-   // image1.Canvas.TextOut(PeakList[i].x, PeakList[i].y, IntToStr(i));
-   // Image1.Canvas.Textou
   end;
 end;
 
@@ -374,7 +363,6 @@ var
 begin
   png:= TPngImage(introIMG.Picture);
   Splash := TSplash.Create(png);
-  //ïîêàçûâàåì Splash
   Splash.Show(true);
 
   InitHeight := Self.Height;
@@ -383,16 +371,7 @@ begin
 
   risuiSuka;
 
-
-  //Image1.Canvas.MoveTo(X0,Y0);
-  //Image1.Canvas.LineTo(x0+100, y0+100);
-  //Image1.Canvas.LineTo(x0+200, y0);
-  {Image1.Canvas.Brush.Color := clBlue;
-  Image1.Canvas.Ellipse(x0-R,Y0-R,X0+R,Y0+R);
-  Image1.Canvas.Ellipse(x0+200-R,Y0-R,X0+200+R,Y0+R);}
-
-
-  //Sleep(2000);
+  Sleep(2000);
 
   Splash.Close;
 
@@ -430,10 +409,8 @@ procedure TgraphForm.Image1MouseUp(Sender: TObject; Button: TMouseButton; Shift:
 var i:integer;
 begin
 Button1.Visible:=true;
-    //ShowMessage(IntToStr(x) + ' ' + IntToStr(y));
     if  Button=mbLeft then
       begin
-      //ShowMessage( IntToStr(N));
       Image1.Canvas.Brush.Color := clRed;
       for i:=1 to N do
         begin
