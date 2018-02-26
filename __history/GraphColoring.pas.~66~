@@ -65,7 +65,7 @@ const
   level2:array[1..2, 1..18] of Integer = ((250,420,510,650,860,860,860,860,80,80,80,80,305,305,665,665,570,365), (50,50,50,50,250,370,445,535,535,445,370,220,{13}295,465,465,295,220,220));
   N3 = 6;
   level3:array[1..2, 1..6] of integer = ((40,300,300,40,120,220),(40,40,200,200,120,120));
-  level4:array[1..2, 1..6] of integer = ((40,300,300,40,120,220),(40,40,200,200,120,120));
+  level4:array[1..2, 1..6] of integer = ((125,280,440,440,280,125),(145,50,145,265,350,265));
   Level1XShift = 120;
   Level1YShift = 60;
   Answer11:array [1..12] of Tstatus =
@@ -76,6 +76,16 @@ const
   (stRed,stRed,stRed,stRed,stRed,stRed,stRed,stRed,stRed,stRed,stRed,stRed,stBlack,stBlack,stBlack,stBlack,stBlack,stBlack);
   Answer31:array[1..6] of TStatus =
   (stRed,stRed,stRed,stRed,stBlack,stBlack);
+  Answer32:array[1..6] of TStatus =
+  (stBlack,stBlack,stRed,stRed,stRed,stRed);
+  Answer33:array[1..6] of TStatus =
+  (stRed,stRed,stBlack,stBlack,stRed,stRed);
+  Answer41:array[1..6] of TStatus =
+  (stRed,stBlack,stRed,stRed,stBlack,stRed);
+  Answer42:array[1..6] of TStatus =
+  (stRed,stRed,stBlack,stRed,stRed,stBlack);
+  Answer43:array[1..6] of TStatus =
+  (stBlack,stRed,stRed,stBlack,stRed,stRed);
   const   // 2 3 4 5 6 7 8 9 0 1 2
 	BConnection1:TBConnection1 =
            ((0,1,0,1,1,0,0,0,0,0,0,0),
@@ -151,11 +161,12 @@ end;
 
 procedure TgraphForm.Button1Click(Sender: TObject);
 var i:integer;
-    gameState1, gameState2, FinishedBool:Boolean;
+    gameState1, gameState2, gamestate3, FinishedBool:Boolean;
 begin
 gameState:=true;
 gameState1 := true;
 gameState2 := true;
+gameState3:= True;
 FinishedBool := true;
 i:=1;
 while (i<=N) and (gameState) do
@@ -163,6 +174,7 @@ while (i<=N) and (gameState) do
     case level of
       lev1:
       begin
+        gamestate3:= false;
         if gameState1 then
           if (Peaklist[i].Status <> Answer11[i]) then
             gameState1:=False;
@@ -172,6 +184,7 @@ while (i<=N) and (gameState) do
       end;
       lev2:
       begin
+        gamestate3:= false;
         gameState2 := False;
         if gameState1 then
           if (Peaklist[i].Status <> Answer21[i]) then
@@ -180,15 +193,34 @@ while (i<=N) and (gameState) do
       end;
       lev3:
       begin
-        gameState2 := False;
         if gameState1 then
           if (Peaklist[i].Status <> Answer31[i]) then
             gameState1:=False;
+         if gameState2 then
+         if (Peaklist[i].Status <> Answer32[i]) then
+            gameState2:=False;
+         if gameState3 then
+          if (Peaklist[i].Status <> Answer33[i]) then
+            gameState3:=False;
+
+      end;
+      lev4:
+      begin
+
+        if gameState1 then
+          if (Peaklist[i].Status <> Answer41[i]) then
+            gameState1:=False;
+         if gameState2 then
+         if (Peaklist[i].Status <> Answer42[i]) then
+            gameState2:=False;
+         if gameState3 then
+          if (Peaklist[i].Status <> Answer43[i]) then
+            gameState3:=False;
 
       end;
     end;
 
-  if not (gameState1 or gameState2)  then
+  if not (gameState1 or gameState2 or gameState3)  then
     gameState:=False;
 
   if Peaklist[i].Status = stBlue then
@@ -239,8 +271,8 @@ begin
       n:=n2;
       for i := 1 to N do
       begin
-        PeakList[i].x := level2[1,i] + Level1XShift;
-        PeakList[i].y := level2[2,i] + Level1YShift + 80;
+        PeakList[i].x := trunc(level2[1,i]*(Screen.Width div 1920)) + Level1XShift - 150;
+        PeakList[i].y := trunc(level2[2,i]*(Screen.Height div 1080)) + Level1YShift;
 
       end;
     end;
@@ -249,8 +281,8 @@ begin
       n:=n3;
       for i := 1 to N do
       begin
-        PeakList[i].x := level3[1,i] + Level1XShift + 300;
-        PeakList[i].y := level3[2,i] + Level1YShift + 180;
+        PeakList[i].x := level3[1,i] + Level1XShift + 120;
+        PeakList[i].y := level3[2,i] + Level1YShift + 100;
 
       end;
     end;
@@ -259,8 +291,8 @@ begin
       n:=n3;
       for i := 1 to N do
       begin
-        PeakList[i].x := level4[1,i] + Level1XShift + 300;
-        PeakList[i].y := level4[2,i] + Level1YShift + 180;
+        PeakList[i].x := level4[1,i] + Level1XShift ;
+        PeakList[i].y := level4[2,i] + Level1YShift + 50;
 
       end;
     end;
@@ -315,23 +347,12 @@ begin
     end;
   end;
 
-
-
-  {Image1.Canvas.MoveTo(PeakList[1].x, PeakList[1].y);
-  for i := 1 to 12 do
-  begin
-    PeakList[i].x := level1[1,i];
-    PeakList[i].y := level1[2,i];
-    Image1.Canvas.LineTo(PeakList[i].x, PeakList[i].y);
-  end;              }
   Image1.Canvas.Brush.Color := RGB(104,174,186);
   Image1.Canvas.Pen.Width := 0;
 
   for i := 1 to N do
   begin
     Image1.Canvas.Ellipse(PeakList[i].x-R,PeakList[i].y-R,PeakList[i].x+R,PeakList[i].y+R);
-   // image1.Canvas.TextOut(PeakList[i].x, PeakList[i].y, IntToStr(i));
-   // Image1.Canvas.Textou
   end;
 end;
 
@@ -342,7 +363,6 @@ var
 begin
   png:= TPngImage(introIMG.Picture);
   Splash := TSplash.Create(png);
-  //ïîêàçûâàåì Splash
   Splash.Show(true);
 
   InitHeight := Self.Height;
@@ -351,16 +371,7 @@ begin
 
   risuiSuka;
 
-
-  //Image1.Canvas.MoveTo(X0,Y0);
-  //Image1.Canvas.LineTo(x0+100, y0+100);
-  //Image1.Canvas.LineTo(x0+200, y0);
-  {Image1.Canvas.Brush.Color := clBlue;
-  Image1.Canvas.Ellipse(x0-R,Y0-R,X0+R,Y0+R);
-  Image1.Canvas.Ellipse(x0+200-R,Y0-R,X0+200+R,Y0+R);}
-
-
-  //Sleep(2000);
+  Sleep(2000);
 
   Splash.Close;
 
@@ -398,10 +409,8 @@ procedure TgraphForm.Image1MouseUp(Sender: TObject; Button: TMouseButton; Shift:
 var i:integer;
 begin
 Button1.Visible:=true;
-    //ShowMessage(IntToStr(x) + ' ' + IntToStr(y));
     if  Button=mbLeft then
       begin
-      //ShowMessage( IntToStr(N));
       Image1.Canvas.Brush.Color := clRed;
       for i:=1 to N do
         begin

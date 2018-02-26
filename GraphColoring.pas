@@ -269,8 +269,10 @@ begin
     lev2:
     begin
       n:=n2;
+      ShowMessage(Screen.Width div 1920);
       for i := 1 to N do
       begin
+
         PeakList[i].x := trunc(level2[1,i]*(Screen.Width div 1920)) + Level1XShift - 150;
         PeakList[i].y := trunc(level2[2,i]*(Screen.Height div 1080)) + Level1YShift;
 
