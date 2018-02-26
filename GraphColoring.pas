@@ -271,8 +271,8 @@ begin
       n:=n2;
       for i := 1 to N do
       begin
-        PeakList[i].x := level2[1,i] + Level1XShift;
-        PeakList[i].y := level2[2,i] + Level1YShift + 80;
+        PeakList[i].x := trunc(level2[1,i]*(Screen.Width div 1920)) + Level1XShift - 150;
+        PeakList[i].y := trunc(level2[2,i]*(Screen.Height div 1080)) + Level1YShift;
 
       end;
     end;
@@ -281,8 +281,8 @@ begin
       n:=n3;
       for i := 1 to N do
       begin
-        PeakList[i].x := level3[1,i] + Level1XShift + 300;
-        PeakList[i].y := level3[2,i] + Level1YShift + 180;
+        PeakList[i].x := level3[1,i] + Level1XShift + 120;
+        PeakList[i].y := level3[2,i] + Level1YShift + 100;
 
       end;
     end;
@@ -291,8 +291,8 @@ begin
       n:=n3;
       for i := 1 to N do
       begin
-        PeakList[i].x := level4[1,i] + Level1XShift + 200;
-        PeakList[i].y := level4[2,i] + Level1YShift + 180;
+        PeakList[i].x := level4[1,i] + Level1XShift ;
+        PeakList[i].y := level4[2,i] + Level1YShift + 50;
 
       end;
     end;
