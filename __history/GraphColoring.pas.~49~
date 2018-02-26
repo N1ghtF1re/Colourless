@@ -34,6 +34,7 @@ type
     mnLevels: TMenuItem;
     mnLevel1: TMenuItem;
     mnLeve2: TMenuItem;
+    mnLevel3: TMenuItem;
     procedure RisuiSuka;
     procedure FormCreate(Sender: TObject);
     procedure Image1MouseUp(Sender: TObject; Button: TMouseButton;
@@ -45,6 +46,8 @@ type
     procedure FormDestroy(Sender: TObject);
     procedure mnHelpClick(Sender: TObject);
     procedure mnNewGameClick(Sender: TObject);
+    procedure mnLevel1Click(Sender: TObject);
+    procedure mnLeve2Click(Sender: TObject);
   private
   splash: TSplash;
     { Private declarations }
@@ -57,6 +60,8 @@ const
   Level1:array[1..2, 1..12] of integer = ((180,300,420,300,60,180,300,420,540,420,300,180),(110,40,110,200,400,320,320,320,400,500,500,500));
   N2 = 18;
   level2:array[1..2, 1..18] of Integer = ((250,420,510,650,860,860,860,860,80,80,80,80,305,305,665,665,570,365), (50,50,50,50,250,370,445,535,535,445,370,220,{13}295,465,465,295,220,220));
+  N3 = 6;
+  level3:array[1..2, 1..6] of integer = ((0,0,0,0,0,0),(0,0,0,0,0,0,));
   Level1XShift = 120;
   Level1YShift = 60;
   Answer11:array [1..12] of Tstatus =
@@ -190,6 +195,9 @@ end;
 procedure TgraphForm.RisuiSuka;
 var i,j:integer;
 begin
+  Image1.Canvas.Brush.Color:= clWhite;
+  image1.Canvas.Pen.Color := clWhite;
+  Image1.Canvas.Rectangle(0,0, image1.Width, image1.Height);
   case level of
     lev1:
     begin
@@ -275,7 +283,7 @@ begin
 
   InitHeight := Self.Height;
   InitWidth := Self.Width;
-  level := lev2;
+  level := lev1;
 
   risuiSuka;
 
@@ -367,6 +375,18 @@ procedure TgraphForm.mnHelpClick(Sender: TObject);
 begin
   Application.CreateForm(TForm1, Form1);
   FORM1.SHOW
+end;
+
+procedure TgraphForm.mnLeve2Click(Sender: TObject);
+begin
+  level := lev2;
+  risuiSuka;
+end;
+
+procedure TgraphForm.mnLevel1Click(Sender: TObject);
+begin
+  level := lev1;
+  risuiSuka;
 end;
 
 procedure TgraphForm.mnNewGameClick(Sender: TObject);

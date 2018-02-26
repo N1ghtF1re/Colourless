@@ -2880,6 +2880,7 @@ object graphForm: TgraphForm
       end
       object mnLevel3: TMenuItem
         Caption = #1059#1088#1086#1074#1077#1085#1100' 3'
+        OnClick = mnLevel3Click
       end
     end
   end
