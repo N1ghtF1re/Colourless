@@ -2,7 +2,7 @@ object graphForm: TgraphForm
   Left = 0
   Top = 0
   Caption = #1056#1072#1089#1082#1088#1072#1089#1082#1072' '#1075#1088#1072#1092#1072' - '#1044#1045#1052#1054
-  ClientHeight = 621
+  ClientHeight = 561
   ClientWidth = 975
   Color = clBtnHighlight
   Font.Charset = DEFAULT_CHARSET
@@ -2798,7 +2798,7 @@ object graphForm: TgraphForm
     Left = 790
     Top = 0
     Width = 185
-    Height = 621
+    Height = 561
     Align = alRight
     Color = clInfoBk
     ParentBackground = False
@@ -2857,16 +2857,30 @@ object graphForm: TgraphForm
     end
   end
   object MainMenu1: TMainMenu
-    object N1: TMenuItem
+    object mnSettings: TMenuItem
       Caption = #1053#1072#1089#1090#1088#1086#1081#1082#1080
-      object N3: TMenuItem
+      object mnNewGame: TMenuItem
         Caption = #1053#1086#1074#1072#1103' '#1048#1075#1088#1072
-        OnClick = N3Click
+        OnClick = mnNewGameClick
       end
     end
-    object N2: TMenuItem
+    object mnHelp: TMenuItem
       Caption = #1055#1086#1084#1086#1097#1100
-      OnClick = N2Click
+      OnClick = mnHelpClick
+    end
+    object mnLevels: TMenuItem
+      Caption = #1059#1088#1086#1074#1077#1085#1100
+      object mnLevel1: TMenuItem
+        Caption = #1059#1088#1086#1074#1077#1085#1100' 1'
+        OnClick = mnLevel1Click
+      end
+      object mnLeve2: TMenuItem
+        Caption = #1059#1088#1086#1074#1077#1085#1100' 2'
+        OnClick = mnLeve2Click
+      end
+      object mnLevel3: TMenuItem
+        Caption = #1059#1088#1086#1074#1077#1085#1100' 3'
+      end
     end
   end
 end

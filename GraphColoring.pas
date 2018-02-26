@@ -7,18 +7,18 @@ uses
   Vcl.Controls, VcL.Menus, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls,SplashScreen, pngimage,
   Instructions;
 const
-  R = 40;
-  N = 12;
+  R = 25;
 
 type
  TBConnection1 = array [1..11,1..12] of byte;
   TStatus = (stBlue, stRed, stBlack);
-  TArray = array [1..N] of Tstatus;
+  //TArray = array [1..18] of Tstatus;
+  TLevel = (lev1, lev2);
   TPeak = record
     x,y:integer;
     status:TStatus;
   end;
-  TPeakList = array[1..N] of TPeak;
+  TPeakList = array[1..18] of TPeak;
   TgraphForm = class(TForm)
     Image1: TImage;
     pnlSidebar: TPanel;
@@ -28,9 +28,14 @@ type
     Label2: TLabel;
     introIMG: TImage;
     MainMenu1: TMainMenu;
-    N1: TMenuItem;
-    N2: TMenuItem;
-    N3: TMenuItem;
+    mnSettings: TMenuItem;
+    mnHelp: TMenuItem;
+    mnNewGame: TMenuItem;
+    mnLevels: TMenuItem;
+    mnLevel1: TMenuItem;
+    mnLeve2: TMenuItem;
+    mnLevel3: TMenuItem;
+    procedure RisuiSuka;
     procedure FormCreate(Sender: TObject);
     procedure Image1MouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
@@ -39,8 +44,10 @@ type
     procedure FormResize(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormDestroy(Sender: TObject);
-    procedure N2Click(Sender: TObject);
-    procedure N3Click(Sender: TObject);
+    procedure mnHelpClick(Sender: TObject);
+    procedure mnNewGameClick(Sender: TObject);
+    procedure mnLevel1Click(Sender: TObject);
+    procedure mnLeve2Click(Sender: TObject);
   private
   splash: TSplash;
     { Private declarations }
@@ -49,15 +56,22 @@ type
   end;
 
 const
-  Level1:array[1..2, 1..N] of integer = ((180,300,420,300,60,180,300,420,540,420,300,180),(110,40,110,200,400,320,320,320,400,500,500,500));
+  N1 = 12;
+  Level1:array[1..2, 1..12] of integer = ((180,300,420,300,60,180,300,420,540,420,300,180),(110,40,110,200,400,320,320,320,400,500,500,500));
+  N2 = 18;
+  level2:array[1..2, 1..18] of Integer = ((250,420,510,650,860,860,860,860,80,80,80,80,305,305,665,665,570,365), (50,50,50,50,250,370,445,535,535,445,370,220,{13}295,465,465,295,220,220));
+  N3 = 6;
+  //level3:array[1..2, 1..6] of integer = ;
   Level1XShift = 120;
   Level1YShift = 60;
-  Answer1:TArray =
+  Answer11:array [1..12] of Tstatus =
   (stBlack,stRed,stRed,stRed,stBlack,stRed,stRed,stRed,stBlack,stBlack,stRed,stRed);
-  Answer2:TArray =
+  Answer12:array [1..12] of Tstatus=
   (stRed,stRed,stBlack,stRed,stBlack,stBlack,stRed,stRed,stBlack,stRed,stRed,stRed);
+  Answer21:array[1..18] of TStatus =
+  (stRed,stRed,stRed,stRed,stRed,stRed,stRed,stRed,stRed,stRed,stRed,stRed,stBlack,stBlack,stBlack,stBlack,stBlack,stBlack);
   const   // 2 3 4 5 6 7 8 9 0 1 2
-	BConnection:TBConnection1 =
+	BConnection1:TBConnection1 =
            ((0,1,0,1,1,0,0,0,0,0,0,0),
             (0,0,1,1,0,0,0,0,0,0,0,0),
             (0,0,0,1,0,0,0,0,1,0,0,0),
@@ -69,6 +83,25 @@ const
             (0,0,0,0,0,0,0,0,0,1,0,0),
             (0,0,0,0,0,0,0,0,0,0,1,0),
             (0,0,0,0,0,0,0,0,0,0,0,1));
+  BConntection2:array[1..17,1..18] of Byte =
+// 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8
+  ((0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1),
+  (0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1),
+  (0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0),
+  (0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0),
+  (0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0),
+  (0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0),
+  (0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0),
+  (0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0),
+  (0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0),
+  (0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0),
+  (0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0),
+  (0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0),
+  (0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0),
+  (0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),
+  (0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0),
+  (0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),
+  (0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1));
 var
   graphForm: TgraphForm;
   PeakList:TPeakList;
@@ -76,6 +109,8 @@ var
   gameState: boolean;
   InitHeight, InitWidth:integer;
   lsh, tsh: integer;
+  level: TLevel;
+  N:integer;
 
 implementation
 
@@ -107,12 +142,26 @@ FinishedBool := true;
 i:=1;
 while (i<=N) and (gameState) do
   begin
-  if gameState1 then
-    if (Peaklist[i].Status <> Answer1[i]) then
-      gameState1:=False;
-  if gameState2 then
-    if (Peaklist[i].Status <> Answer2[i]) then
-      gameState2:=False;
+    case level of
+      lev1:
+      begin
+        if gameState1 then
+          if (Peaklist[i].Status <> Answer11[i]) then
+            gameState1:=False;
+        if gameState2 then
+          if (Peaklist[i].Status <> Answer12[i]) then
+            gameState2:=False;
+      end;
+      lev2:
+      begin
+        gameState2 := False;
+        if gameState1 then
+          if (Peaklist[i].Status <> Answer21[i]) then
+            gameState1:=False;
+
+      end;
+    end;
+
   if not (gameState1 or gameState2)  then
     gameState:=False;
 
@@ -143,38 +192,67 @@ else
   end;
 end;
 
-procedure TgraphForm.FormCreate(Sender: TObject);
-var
-  i,j: Integer;
-  png: TPngImage;
+procedure TgraphForm.RisuiSuka;
+var i,j:integer;
 begin
-  png:= TPngImage(introIMG.Picture);
-  Splash := TSplash.Create(png);
-  //ïîêàçûâàåì Splash
-  Splash.Show(true);
+  Image1.Canvas.Brush.Color:= clWhite;
+  image1.Canvas.Pen.Color := clWhite;
+  Image1.Canvas.Rectangle(0,0, image1.Width, image1.Height);
+  case level of
+    lev1:
+    begin
+      n:=n1;
+      for i := 1 to N do
+      begin
+        PeakList[i].x := level1[1,i] + Level1XShift;
+        PeakList[i].y := level1[2,i] + Level1YShift;
+      end;
+    end;
+    lev2:
+    begin
+      n:=n2;
+      for i := 1 to N do
+      begin
+        PeakList[i].x := level2[1,i] + Level1XShift;
+        PeakList[i].y := level2[2,i] + Level1YShift + 80;
 
-  InitHeight := Self.Height;
-  InitWidth := Self.Width;
-  for i := 1 to N do
-  begin
-    PeakList[i].x := level1[1,i] + Level1XShift;
-    PeakList[i].y := level1[2,i] + Level1YShift;
+      end;
+    end;
   end;
+
   Image1.Canvas.Pen.Width := 10;
   Image1.Canvas.Pen.Color := RGB(199,183,188);
+  //  НАДО РАСКОМЕНТИТЬ
   for i := 1 to N-1 do
   begin
     for j := 1 to N do
     begin
       //ShowMessage(IntToStr(i) + ' ' + IntToStr(j));
-      if BConnection[i,j] = 1 then
-      begin
-        Image1.Canvas.MoveTo(PeakList[i].x, PeakList[i].y);
-        Image1.Canvas.LineTo(PeakList[j].x, PeakList[j].y);
+      case level of
+        lev1:
+        begin
+          if BConnection1[i,j] = 1 then
+          begin
+            Image1.Canvas.MoveTo(PeakList[i].x, PeakList[i].y);
+            Image1.Canvas.LineTo(PeakList[j].x, PeakList[j].y);
+          end;
+        end;
+        lev2:
+        begin
+          if BConntection2[i,j] = 1 then
+          begin
+            Image1.Canvas.MoveTo(PeakList[i].x, PeakList[i].y);
+            Image1.Canvas.LineTo(PeakList[j].x, PeakList[j].y);
 
+          end;
+        end;
       end;
+
     end;
   end;
+
+
+
   {Image1.Canvas.MoveTo(PeakList[1].x, PeakList[1].y);
   for i := 1 to 12 do
   begin
@@ -188,7 +266,26 @@ begin
   for i := 1 to N do
   begin
     Image1.Canvas.Ellipse(PeakList[i].x-R,PeakList[i].y-R,PeakList[i].x+R,PeakList[i].y+R);
+   // image1.Canvas.TextOut(PeakList[i].x, PeakList[i].y, IntToStr(i));
+   // Image1.Canvas.Textou
   end;
+end;
+
+procedure TgraphForm.FormCreate(Sender: TObject);
+var
+  i,j: Integer;
+  png: TPngImage;
+begin
+  png:= TPngImage(introIMG.Picture);
+  Splash := TSplash.Create(png);
+  //ïîêàçûâàåì Splash
+  Splash.Show(true);
+
+  InitHeight := Self.Height;
+  InitWidth := Self.Width;
+  level := lev1;
+
+  risuiSuka;
 
 
   //Image1.Canvas.MoveTo(X0,Y0);
@@ -199,7 +296,7 @@ begin
   Image1.Canvas.Ellipse(x0+200-R,Y0-R,X0+200+R,Y0+R);}
 
 
-  Sleep(2000);
+  //Sleep(2000);
 
   Splash.Close;
 
@@ -240,6 +337,7 @@ Button1.Visible:=true;
     //ShowMessage(IntToStr(x) + ' ' + IntToStr(y));
     if  Button=mbLeft then
       begin
+      //ShowMessage( IntToStr(N));
       Image1.Canvas.Brush.Color := clRed;
       for i:=1 to N do
         begin
@@ -247,6 +345,7 @@ Button1.Visible:=true;
           begin
             x0:= PeakList[i].x;
             y0:= PeakList[i].y;
+
             PeakList[i].status :=stRed;
             Image1.Canvas.Ellipse(x0-R,Y0-R,X0+R,Y0+R);
           end;
@@ -272,13 +371,25 @@ Button1.Visible:=true;
 
 end;
 
-procedure TgraphForm.N2Click(Sender: TObject);
+procedure TgraphForm.mnHelpClick(Sender: TObject);
 begin
   Application.CreateForm(TForm1, Form1);
   FORM1.SHOW
 end;
 
-procedure TgraphForm.N3Click(Sender: TObject);
+procedure TgraphForm.mnLeve2Click(Sender: TObject);
+begin
+  level := lev2;
+  risuiSuka;
+end;
+
+procedure TgraphForm.mnLevel1Click(Sender: TObject);
+begin
+  level := lev1;
+  risuiSuka;
+end;
+
+procedure TgraphForm.mnNewGameClick(Sender: TObject);
 var i:integer;
 begin
 for i := 1 to N do
