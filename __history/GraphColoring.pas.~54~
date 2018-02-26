@@ -13,7 +13,7 @@ type
  TBConnection1 = array [1..11,1..12] of byte;
   TStatus = (stBlue, stRed, stBlack);
   //TArray = array [1..18] of Tstatus;
-  TLevel = (lev1, lev2);
+  TLevel = (lev1, lev2, lev3);
   TPeak = record
     x,y:integer;
     status:TStatus;
@@ -34,6 +34,7 @@ type
     mnLevels: TMenuItem;
     mnLevel1: TMenuItem;
     mnLeve2: TMenuItem;
+    mnLevel3: TMenuItem;
     procedure RisuiSuka;
     procedure FormCreate(Sender: TObject);
     procedure Image1MouseUp(Sender: TObject; Button: TMouseButton;
@@ -47,6 +48,7 @@ type
     procedure mnNewGameClick(Sender: TObject);
     procedure mnLevel1Click(Sender: TObject);
     procedure mnLeve2Click(Sender: TObject);
+    procedure mnLevel3Click(Sender: TObject);
   private
   splash: TSplash;
     { Private declarations }
@@ -59,6 +61,8 @@ const
   Level1:array[1..2, 1..12] of integer = ((180,300,420,300,60,180,300,420,540,420,300,180),(110,40,110,200,400,320,320,320,400,500,500,500));
   N2 = 18;
   level2:array[1..2, 1..18] of Integer = ((250,420,510,650,860,860,860,860,80,80,80,80,305,305,665,665,570,365), (50,50,50,50,250,370,445,535,535,445,370,220,{13}295,465,465,295,220,220));
+  N3 = 6;
+  level3:array[1..2, 1..6] of integer = ((40,300,300,40,120,220),(40,40,200,200,120,120));
   Level1XShift = 120;
   Level1YShift = 60;
   Answer11:array [1..12] of Tstatus =
@@ -67,6 +71,8 @@ const
   (stRed,stRed,stBlack,stRed,stBlack,stBlack,stRed,stRed,stBlack,stRed,stRed,stRed);
   Answer21:array[1..18] of TStatus =
   (stRed,stRed,stRed,stRed,stRed,stRed,stRed,stRed,stRed,stRed,stRed,stRed,stBlack,stBlack,stBlack,stBlack,stBlack,stBlack);
+  Answer31:array[1..6] of TStatus =
+  (stRed,stRed,stRed,stRed,stBlack,stBlack);
   const   // 2 3 4 5 6 7 8 9 0 1 2
 	BConnection1:TBConnection1 =
            ((0,1,0,1,1,0,0,0,0,0,0,0),
@@ -99,6 +105,12 @@ const
   (0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0),
   (0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),
   (0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1));
+  BConnection3:array[1..5, 1..6] of Byte =
+  ((0,1,0,1,1,0),
+  (0,0,1,0,0,1),
+  (0,0,0,1,0,1),
+  (0,0,0,0,1,0),
+  (0,0,0,0,0,1));
 var
   graphForm: TgraphForm;
   PeakList:TPeakList;
@@ -154,6 +166,14 @@ while (i<=N) and (gameState) do
         gameState2 := False;
         if gameState1 then
           if (Peaklist[i].Status <> Answer21[i]) then
+            gameState1:=False;
+
+      end;
+      lev3:
+      begin
+        gameState2 := False;
+        if gameState1 then
+          if (Peaklist[i].Status <> Answer31[i]) then
             gameState1:=False;
 
       end;
@@ -215,6 +235,16 @@ begin
 
       end;
     end;
+    lev3:
+    begin
+      n:=n3;
+      for i := 1 to N do
+      begin
+        PeakList[i].x := level3[1,i] + Level1XShift + 300;
+        PeakList[i].y := level3[2,i] + Level1YShift + 180;
+
+      end;
+    end;
   end;
 
   Image1.Canvas.Pen.Width := 10;
@@ -237,6 +267,15 @@ begin
         lev2:
         begin
           if BConntection2[i,j] = 1 then
+          begin
+            Image1.Canvas.MoveTo(PeakList[i].x, PeakList[i].y);
+            Image1.Canvas.LineTo(PeakList[j].x, PeakList[j].y);
+
+          end;
+        end;
+        lev3:
+        begin
+          if BConnection3[i,j] = 1 then
           begin
             Image1.Canvas.MoveTo(PeakList[i].x, PeakList[i].y);
             Image1.Canvas.LineTo(PeakList[j].x, PeakList[j].y);
@@ -383,6 +422,12 @@ end;
 procedure TgraphForm.mnLevel1Click(Sender: TObject);
 begin
   level := lev1;
+  risuiSuka;
+end;
+
+procedure TgraphForm.mnLevel3Click(Sender: TObject);
+begin
+  level := lev3;
   risuiSuka;
 end;
 

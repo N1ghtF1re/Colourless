@@ -2,7 +2,7 @@ object graphForm: TgraphForm
   Left = 0
   Top = 0
   Caption = #1056#1072#1089#1082#1088#1072#1089#1082#1072' '#1075#1088#1072#1092#1072' - '#1044#1045#1052#1054
-  ClientHeight = 561
+  ClientHeight = 541
   ClientWidth = 975
   Color = clBtnHighlight
   Font.Charset = DEFAULT_CHARSET
@@ -2798,7 +2798,7 @@ object graphForm: TgraphForm
     Left = 790
     Top = 0
     Width = 185
-    Height = 561
+    Height = 541
     Align = alRight
     Color = clInfoBk
     ParentBackground = False
@@ -2823,7 +2823,7 @@ object graphForm: TgraphForm
     end
     object Label2: TLabel
       Left = 24
-      Top = 174
+      Top = 238
       Width = 138
       Height = 13
       Alignment = taCenter
@@ -2881,6 +2881,10 @@ object graphForm: TgraphForm
       object mnLevel3: TMenuItem
         Caption = #1059#1088#1086#1074#1077#1085#1100' 3'
         OnClick = mnLevel3Click
+      end
+      object mnLevel4: TMenuItem
+        Caption = #1059#1088#1086#1074#1077#1085#1100' 4'
+        OnClick = mnLevel4Click
       end
     end
   end
