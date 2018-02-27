@@ -154,23 +154,8 @@ implementation
 
 procedure TgraphForm.Button3Click(Sender: TObject);
 begin
-case level of
-lev1:
-  begin
-  level := lev2;
-  drawGraph;
-  end;
-lev2:
-  begin
-  level := lev3;
-  drawGraph;
-  end;
-lev3:
-  begin
-  level := lev4;
-  drawGraph;
-  end;
-end;
+inc(level);
+drawGraph;
 button1.Visible:=false;
 button2.Visible:=false;
 button3.Visible:=false;
