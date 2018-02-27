@@ -2,7 +2,7 @@ object graphForm: TgraphForm
   Left = 0
   Top = 0
   Caption = #1056#1072#1089#1082#1088#1072#1089#1082#1072' '#1075#1088#1072#1092#1072' - '#1044#1045#1052#1054
-  ClientHeight = 621
+  ClientHeight = 601
   ClientWidth = 975
   Color = clBtnHighlight
   Font.Charset = DEFAULT_CHARSET
@@ -21,7 +21,7 @@ object graphForm: TgraphForm
   object Image1: TImage
     Left = 0
     Top = 0
-    Width = 790
+    Width = 736
     Height = 621
     Align = alClient
     AutoSize = True
@@ -29,6 +29,7 @@ object graphForm: TgraphForm
     Constraints.MinHeight = 621
     Constraints.MinWidth = 577
     OnMouseUp = Image1MouseUp
+    ExplicitWidth = 790
     ExplicitHeight = 600
   end
   object introIMG: TImage
@@ -2796,50 +2797,49 @@ object graphForm: TgraphForm
     Visible = False
   end
   object pnlSidebar: TPanel
-    Left = 790
+    Left = 736
     Top = 0
-    Width = 185
-    Height = 621
+    Width = 239
+    Height = 601
     Align = alRight
     Color = clInfoBk
     ParentBackground = False
     ShowCaption = False
     TabOrder = 0
-    ExplicitHeight = 461
     object Label1: TLabel
-      Left = 24
-      Top = 88
-      Width = 145
-      Height = 80
+      Left = 16
+      Top = 80
+      Width = 208
+      Height = 76
       Alignment = taCenter
       Caption = 
         #1063#1090#1086#1073#1099' '#1086#1082#1088#1072#1089#1080#1090#1100' '#1074' '#1082#1088#1072#1089#1085#1099#1081' '#1094#1074#1077#1090', '#1082#1083#1080#1082#1085#1080#1090#1077' '#1083#1077#1074#1086#1081' '#1082#1083#1072#1074#1080#1096#1077#1081' '#1084#1099#1096#1080'. '#1042' '#1095 +
         #1077#1088#1085#1099#1081' - '#1087#1088#1072#1074#1086#1081' '#1082#1083#1072#1074#1080#1096#1077#1081' '#1084#1099#1096#1080'.'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
-      Font.Height = -13
+      Font.Height = -16
       Font.Name = 'Tahoma'
       Font.Style = [fsItalic]
       ParentFont = False
       WordWrap = True
     end
     object Label2: TLabel
-      Left = 24
-      Top = 238
-      Width = 138
-      Height = 13
+      Left = 48
+      Top = 180
+      Width = 157
+      Height = 14
       Alignment = taCenter
       Caption = '* '#1052#1086#1078#1085#1086' '#1082#1088#1072#1089#1080#1090#1100' '#1087#1086#1074#1090#1086#1088#1085#1086
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
-      Font.Height = -11
+      Font.Height = -12
       Font.Name = 'Tahoma'
       Font.Style = [fsItalic]
       ParentFont = False
     end
     object Button1: TButton
-      Left = 24
-      Top = 336
+      Left = 48
+      Top = 400
       Width = 145
       Height = 49
       Caption = #1055#1088#1086#1074#1077#1088#1080#1090#1100
@@ -2848,8 +2848,8 @@ object graphForm: TgraphForm
       OnClick = Button1Click
     end
     object Button2: TButton
-      Left = 40
-      Top = 289
+      Left = 64
+      Top = 328
       Width = 113
       Height = 33
       Caption = #1053#1072#1095#1072#1090#1100' '#1089#1085#1072#1095#1072#1083#1072

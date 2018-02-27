@@ -62,7 +62,7 @@ const
   N1 = 12;
   Level1:array[1..2, 1..12] of integer = ((180,300,420,300,60,180,300,420,540,420,300,180),(110,40,110,200,400,320,320,320,400,500,500,500));
   N2 = 18;
-  level2:array[1..2, 1..18] of Integer = ((250,420,510,650,860,860,860,860,80,80,80,80,305,305,665,665,570,365), (50,50,50,50,250,370,445,535,535,445,370,220,{13}295,465,465,295,220,220));
+  level2:array[1..2, 1..18] of Integer = ((250,420,510,685,860,860,860,860,80,80,{11}80,80,305,305,630,630,570,365), (50,50,50,50,220,370,445,535,535,445,370,220,{13}295,465,465,295,220,220));
   N3 = 6;
   level3:array[1..2, 1..6] of integer = ((40,300,300,40,120,220),(40,40,200,200,120,120));
   level4:array[1..2, 1..6] of integer = ((125,280,440,440,280,125),(145,50,145,265,350,265));
@@ -74,6 +74,10 @@ const
   (stRed,stRed,stBlack,stRed,stBlack,stBlack,stRed,stRed,stBlack,stRed,stRed,stRed);
   Answer21:array[1..18] of TStatus =
   (stRed,stRed,stRed,stRed,stRed,stRed,stRed,stRed,stRed,stRed,stRed,stRed,stBlack,stBlack,stBlack,stBlack,stBlack,stBlack);
+  Answer22:array[1..18] of TStatus =
+  (stRed,stBlack,stBlack,stRed,stRed,stBlack,stBlack,stRed,stRed,stBlack,stBlack,stRed,stRed,stRed,stRed,stRed,stRed,stRed);
+  Answer23:array[1..18] of TStatus =
+  (stBlack,stRed,stRed,stBlack,stBlack,stRed,stRed,stBlack,stBlack,stRed,stRed,stBlack,stRed,stRed,stRed,stRed,stRed,stRed);
   Answer31:array[1..6] of TStatus =
   (stRed,stRed,stRed,stRed,stBlack,stBlack);
   Answer32:array[1..6] of TStatus =
@@ -185,8 +189,12 @@ while (i<=N) and (gameState) do
       end;
       lev2:
       begin
-        gamestate3:= false;
-        gameState2 := False;
+        if gameState3 then
+          if (Peaklist[i].Status <> Answer23[i]) then
+            gameState3:=False;
+        if gameState2 then
+          if (Peaklist[i].Status <> Answer22[i]) then
+            gameState2:=False;
         if gameState1 then
           if (Peaklist[i].Status <> Answer21[i]) then
             gameState1:=False;
