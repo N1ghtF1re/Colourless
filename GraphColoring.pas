@@ -28,15 +28,15 @@ type
     Label2: TLabel;
     introIMG: TImage;
     MainMenu1: TMainMenu;
-    mnSettings: TMenuItem;
     mnHelp: TMenuItem;
-    mnNewGame: TMenuItem;
     mnLevels: TMenuItem;
     mnLevel1: TMenuItem;
     mnLeve2: TMenuItem;
     mnLevel3: TMenuItem;
     mnLevel4: TMenuItem;
-    procedure RisuiSuka;
+    Button3: TButton;
+    Button4: TButton;
+    procedure drawGraph;
     procedure FormCreate(Sender: TObject);
     procedure Image1MouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
@@ -51,6 +51,8 @@ type
     procedure mnLeve2Click(Sender: TObject);
     procedure mnLevel3Click(Sender: TObject);
     procedure mnLevel4Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+    procedure Button4Click(Sender: TObject);
   private
   splash: TSplash;
     { Private declarations }
@@ -149,6 +151,40 @@ implementation
 
 {$R *.dfm}
 
+
+procedure TgraphForm.Button3Click(Sender: TObject);
+begin
+case level of
+lev1:
+  begin
+  level := lev2;
+  drawGraph;
+  end;
+lev2:
+  begin
+  level := lev3;
+  drawGraph;
+  end;
+lev3:
+  begin
+  level := lev4;
+  drawGraph;
+  end;
+end;
+button1.Visible:=false;
+button2.Visible:=false;
+button3.Visible:=false;
+end;
+
+procedure TgraphForm.Button4Click(Sender: TObject);
+begin
+level := lev1;
+drawGraph;
+button1.Visible:=false;
+button2.Visible:=false;
+button4.Visible:=false;
+end;
+
 procedure TgraphForm.ButtonRestartClick(Sender: TObject);
 var i:integer;
 begin
@@ -240,6 +276,10 @@ if gameState then
   begin
   ShowMessage('Все правильно!');
   button2.Visible:=true;
+  if level<>lev4 then
+    button3.Visible:=true
+  else
+    button4.Visible:=true
   end
 else
   begin
@@ -259,7 +299,7 @@ else
   end;
 end;
 
-procedure TgraphForm.RisuiSuka;
+procedure TgraphForm.drawGraph;
 var i,j:integer;
 Wcoef, HCoef:real;
 begin
@@ -382,7 +422,7 @@ begin
   InitWidth := Self.Width;
   level := lev1;
 
-  risuiSuka;
+  drawGraph;
 
   Sleep(2000);
 
@@ -466,25 +506,25 @@ end;
 procedure TgraphForm.mnLeve2Click(Sender: TObject);
 begin
   level := lev2;
-  risuiSuka;
+  drawGraph;
 end;
 
 procedure TgraphForm.mnLevel1Click(Sender: TObject);
 begin
   level := lev1;
-  risuiSuka;
+  drawGraph;
 end;
 
 procedure TgraphForm.mnLevel3Click(Sender: TObject);
 begin
   level := lev3;
-  risuiSuka;
+  drawGraph;
 end;
 
 procedure TgraphForm.mnLevel4Click(Sender: TObject);
 begin
   level := lev4;
-  risuiSuka;
+  drawGraph;
 end;
 
 procedure TgraphForm.mnNewGameClick(Sender: TObject);

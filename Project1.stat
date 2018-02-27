@@ -1,10 +1,10 @@
 [Stats]
 <<<<<<< HEAD
-EditorSecs=6337
-DesignerSecs=137
-InspectorSecs=240
-CompileSecs=578394
-OtherSecs=38
+EditorSecs=6867
+DesignerSecs=474
+InspectorSecs=373
+CompileSecs=595205
+OtherSecs=237
 StartTime=2/27/2018 5:31:06 PM
 =======
 EditorSecs=736
