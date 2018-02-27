@@ -60,34 +60,38 @@ type
 
 const
   N1 = 12;
-  Level1:array[1..2, 1..12] of integer = ((180,300,420,300,60,180,300,420,540,420,300,180),(110,40,110,200,400,320,320,320,400,500,500,500));
+  Level3:array[1..2, 1..12] of integer = ((180,300,420,300,60,180,300,420,540,420,300,180),(110,40,110,200,400,320,320,320,400,500,500,500));
   N2 = 18;
-  level2:array[1..2, 1..18] of Integer = ((250,420,510,650,860,860,860,860,80,80,80,80,305,305,665,665,570,365), (50,50,50,50,250,370,445,535,535,445,370,220,{13}295,465,465,295,220,220));
+  level4:array[1..2, 1..18] of Integer = ((250,420,510,685,860,860,860,860,80,80,{11}80,80,305,305,630,630,570,365), (50,50,50,50,220,370,445,535,535,445,370,220,{13}295,465,465,295,220,220));
   N3 = 6;
-  level3:array[1..2, 1..6] of integer = ((40,300,300,40,120,220),(40,40,200,200,120,120));
-  level4:array[1..2, 1..6] of integer = ((125,280,440,440,280,125),(145,50,145,265,350,265));
-  Level1XShift = 120;
-  Level1YShift = 60;
-  Answer11:array [1..12] of Tstatus =
+  level1:array[1..2, 1..6] of integer = ((40,300,300,40,120,220),(40,40,200,200,120,120));
+  level2:array[1..2, 1..6] of integer = ((125,280,440,440,280,125),(145,50,145,265,350,265));
+  Level3XShift = 120;
+  Level3YShift = 60;
+  Answer31:array [1..12] of Tstatus =
   (stBlack,stRed,stRed,stRed,stBlack,stRed,stRed,stRed,stBlack,stBlack,stRed,stRed);
-  Answer12:array [1..12] of Tstatus=
+  Answer32:array [1..12] of Tstatus=
   (stRed,stRed,stBlack,stRed,stBlack,stBlack,stRed,stRed,stBlack,stRed,stRed,stRed);
-  Answer21:array[1..18] of TStatus =
+  Answer41:array[1..18] of TStatus =
   (stRed,stRed,stRed,stRed,stRed,stRed,stRed,stRed,stRed,stRed,stRed,stRed,stBlack,stBlack,stBlack,stBlack,stBlack,stBlack);
-  Answer31:array[1..6] of TStatus =
+  Answer42:array[1..18] of TStatus =
+  (stRed,stBlack,stBlack,stRed,stRed,stBlack,stBlack,stRed,stRed,stBlack,stBlack,stRed,stRed,stRed,stRed,stRed,stRed,stRed);
+  Answer43:array[1..18] of TStatus =
+  (stBlack,stRed,stRed,stBlack,stBlack,stRed,stRed,stBlack,stBlack,stRed,stRed,stBlack,stRed,stRed,stRed,stRed,stRed,stRed);
+  Answer11:array[1..6] of TStatus =
   (stRed,stRed,stRed,stRed,stBlack,stBlack);
-  Answer32:array[1..6] of TStatus =
+  Answer12:array[1..6] of TStatus =
   (stBlack,stBlack,stRed,stRed,stRed,stRed);
-  Answer33:array[1..6] of TStatus =
+  Answer13:array[1..6] of TStatus =
   (stRed,stRed,stBlack,stBlack,stRed,stRed);
-  Answer41:array[1..6] of TStatus =
+  Answer21:array[1..6] of TStatus =
   (stRed,stBlack,stRed,stRed,stBlack,stRed);
-  Answer42:array[1..6] of TStatus =
+  Answer22:array[1..6] of TStatus =
   (stRed,stRed,stBlack,stRed,stRed,stBlack);
-  Answer43:array[1..6] of TStatus =
+  Answer23:array[1..6] of TStatus =
   (stBlack,stRed,stRed,stBlack,stRed,stRed);
   const   // 2 3 4 5 6 7 8 9 0 1 2
-	BConnection1:TBConnection1 =
+	BConnection3:TBConnection1 =
            ((0,1,0,1,1,0,0,0,0,0,0,0),
             (0,0,1,1,0,0,0,0,0,0,0,0),
             (0,0,0,1,0,0,0,0,1,0,0,0),
@@ -99,7 +103,7 @@ const
             (0,0,0,0,0,0,0,0,0,1,0,0),
             (0,0,0,0,0,0,0,0,0,0,1,0),
             (0,0,0,0,0,0,0,0,0,0,0,1));
-  BConntection2:array[1..17,1..18] of Byte =
+  BConntection4:array[1..17,1..18] of Byte =
 // 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8
   ((0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1),
   (0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1),
@@ -118,13 +122,13 @@ const
   (0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0),
   (0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),
   (0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1));
-  BConnection3:array[1..5, 1..6] of Byte =
+  BConnection1:array[1..5, 1..6] of Byte =
   ((0,1,0,1,1,0),
   (0,0,1,0,0,1),
   (0,0,0,1,0,1),
   (0,0,0,0,1,0),
   (0,0,0,0,0,1));
-  BConnection4:array[1..5, 1..6] of Byte =
+  BConnection2:array[1..5, 1..6] of Byte =
   ((0,0,1,1,1,0),
   (0,0,0,1,1,1),
   (0,0,0,0,1,1),
@@ -139,6 +143,7 @@ var
   lsh, tsh: integer;
   level: TLevel;
   N:integer;
+  initImgWidth, initImgHeight: integer;
 
 implementation
 
@@ -172,49 +177,53 @@ i:=1;
 while (i<=N) and (gameState) do
   begin
     case level of
-      lev1:
-      begin
-        gamestate3:= false;
-        if gameState1 then
-          if (Peaklist[i].Status <> Answer11[i]) then
-            gameState1:=False;
-        if gameState2 then
-          if (Peaklist[i].Status <> Answer12[i]) then
-            gameState2:=False;
-      end;
-      lev2:
-      begin
-        gamestate3:= false;
-        gameState2 := False;
-        if gameState1 then
-          if (Peaklist[i].Status <> Answer21[i]) then
-            gameState1:=False;
-
-      end;
       lev3:
       begin
+        gamestate3:= false;
         if gameState1 then
           if (Peaklist[i].Status <> Answer31[i]) then
             gameState1:=False;
-         if gameState2 then
-         if (Peaklist[i].Status <> Answer32[i]) then
+        if gameState2 then
+          if (Peaklist[i].Status <> Answer32[i]) then
             gameState2:=False;
-         if gameState3 then
-          if (Peaklist[i].Status <> Answer33[i]) then
-            gameState3:=False;
-
       end;
       lev4:
       begin
-
+        if gameState3 then
+          if (Peaklist[i].Status <> Answer43[i]) then
+            gameState3:=False;
+        if gameState2 then
+          if (Peaklist[i].Status <> Answer42[i]) then
+            gameState2:=False;
         if gameState1 then
           if (Peaklist[i].Status <> Answer41[i]) then
             gameState1:=False;
+
+      end;
+      lev1:
+      begin
+        if gameState1 then
+          if (Peaklist[i].Status <> Answer11[i]) then
+            gameState1:=False;
          if gameState2 then
-         if (Peaklist[i].Status <> Answer42[i]) then
+         if (Peaklist[i].Status <> Answer12[i]) then
             gameState2:=False;
          if gameState3 then
-          if (Peaklist[i].Status <> Answer43[i]) then
+          if (Peaklist[i].Status <> Answer13[i]) then
+            gameState3:=False;
+
+      end;
+      lev2:
+      begin
+
+        if gameState1 then
+          if (Peaklist[i].Status <> Answer21[i]) then
+            gameState1:=False;
+         if gameState2 then
+         if (Peaklist[i].Status <> Answer22[i]) then
+            gameState2:=False;
+         if gameState3 then
+          if (Peaklist[i].Status <> Answer23[i]) then
             gameState3:=False;
 
       end;
@@ -252,48 +261,50 @@ end;
 
 procedure TgraphForm.RisuiSuka;
 var i,j:integer;
+Wcoef, HCoef:real;
 begin
   Image1.Canvas.Brush.Color:= clWhite;
   image1.Canvas.Pen.Color := clWhite;
   Image1.Canvas.Rectangle(0,0, image1.Width, image1.Height);
+  Wcoef := Screen.Width / 1920;
+  HCoef := Screen.Height / 1080;
+  // ShowMessage(FloatToStr( WCoef ));
   case level of
-    lev1:
+    lev3:
     begin
       n:=n1;
       for i := 1 to N do
       begin
-        PeakList[i].x := level1[1,i] + Level1XShift;
-        PeakList[i].y := level1[2,i] + Level1YShift;
-      end;
-    end;
-    lev2:
-    begin
-      n:=n2;
-
-      for i := 1 to N do
-      begin
-        PeakList[i].x := trunc(level2[1,i]*Screen.Width div 1920) - 80 + (Image1.Width-(780)*(Screen.Width div 1920)) div 2;
-        PeakList[i].y := trunc(level2[2,i]*Screen.Height div 1080) -40 + (Image1.Height-(485)*(Screen.Height div 1080)) div 2 ;
-      end;
-    end;
-    lev3:
-    begin
-      n:=n3;
-      for i := 1 to N do
-      begin
-        PeakList[i].x := level3[1,i] + Level1XShift + 120;
-        PeakList[i].y := level3[2,i] + Level1YShift + 100;
-
+        PeakList[i].x := trunc(level3[1,i]*wcoef) - 60 + (initImgWidth - Trunc(480*WCoef)) div 2;
+        PeakList[i].y := trunc(level3[2,i]*hcoef) -40 + ( initImgHeight -Trunc(460*Hcoef)) div 2 ;
       end;
     end;
     lev4:
     begin
+      n:=n2;
+      //ShowMessage( IntToStr( Image1.Width ) );
+      for i := 1 to N do
+      begin
+        PeakList[i].x := trunc(level4[1,i]*wcoef) - 80 + (initImgWidth - Trunc(780*wcoef)) div 2;
+        PeakList[i].y := trunc(level4[2,i]*hcoef) -40 + ( initImgHeight -Trunc(485*hcoef)) div 2 ;
+      end;
+    end;
+    lev1:
+    begin
       n:=n3;
       for i := 1 to N do
       begin
-        PeakList[i].x := level4[1,i] + Level1XShift ;
-        PeakList[i].y := level4[2,i] + Level1YShift + 50;
-
+        PeakList[i].x := trunc(level1[1,i]*wcoef) - 40 + (initImgWidth - Trunc(260*wcoef)) div 2;
+        PeakList[i].y := trunc(level1[2,i]*wcoef) -40 + ( initImgHeight - Trunc(160*hcoef)) div 2 ;
+       end;
+    end;
+    lev2:
+    begin
+      n:=n3;
+      for i := 1 to N do
+      begin
+        PeakList[i].x := trunc(level2[1,i]*wcoef) - 125 + (initImgWidth - Trunc(315*wcoef)) div 2;
+        PeakList[i].y := trunc(level2[2,i]*hcoef) -50 + ( initImgHeight -Trunc(300*hcoef)) div 2 ;
       end;
     end;
   end;
@@ -307,35 +318,35 @@ begin
     begin
       //ShowMessage(IntToStr(i) + ' ' + IntToStr(j));
       case level of
-        lev1:
-        begin
-          if BConnection1[i,j] = 1 then
-          begin
-            Image1.Canvas.MoveTo(PeakList[i].x, PeakList[i].y);
-            Image1.Canvas.LineTo(PeakList[j].x, PeakList[j].y);
-          end;
-        end;
-        lev2:
-        begin
-          if BConntection2[i,j] = 1 then
-          begin
-            Image1.Canvas.MoveTo(PeakList[i].x, PeakList[i].y);
-            Image1.Canvas.LineTo(PeakList[j].x, PeakList[j].y);
-
-          end;
-        end;
         lev3:
         begin
           if BConnection3[i,j] = 1 then
           begin
             Image1.Canvas.MoveTo(PeakList[i].x, PeakList[i].y);
             Image1.Canvas.LineTo(PeakList[j].x, PeakList[j].y);
-
           end;
         end;
         lev4:
         begin
-          if BConnection4[i,j] = 1 then
+          if BConntection4[i,j] = 1 then
+          begin
+            Image1.Canvas.MoveTo(PeakList[i].x, PeakList[i].y);
+            Image1.Canvas.LineTo(PeakList[j].x, PeakList[j].y);
+
+          end;
+        end;
+        lev1:
+        begin
+          if BConnection1[i,j] = 1 then
+          begin
+            Image1.Canvas.MoveTo(PeakList[i].x, PeakList[i].y);
+            Image1.Canvas.LineTo(PeakList[j].x, PeakList[j].y);
+
+          end;
+        end;
+        lev2:
+        begin
+          if BConnection2[i,j] = 1 then
           begin
             Image1.Canvas.MoveTo(PeakList[i].x, PeakList[i].y);
             Image1.Canvas.LineTo(PeakList[j].x, PeakList[j].y);
@@ -361,6 +372,8 @@ var
   i,j: Integer;
   png: TPngImage;
 begin
+  InitImgWidth := Image1.Width;
+  InitImgHeight := Image1.Height;
   png:= TPngImage(introIMG.Picture);
   Splash := TSplash.Create(png);
   Splash.Show(true);

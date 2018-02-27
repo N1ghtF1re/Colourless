@@ -401,7 +401,7 @@ procedure TgraphForm.FormKeyDown(Sender: TObject; var Key: Word;
 begin
   if key = 122 then
   begin
-    BorderStyle := bsNone;
+    //BorderStyle := bsNone;
     WindowState := wsMaximized;
   end;
   if key = 27 then
