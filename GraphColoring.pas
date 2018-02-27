@@ -253,18 +253,22 @@ end;
 
 procedure TgraphForm.RisuiSuka;
 var i,j:integer;
+Wcoef, HCoef:real;
 begin
   Image1.Canvas.Brush.Color:= clWhite;
   image1.Canvas.Pen.Color := clWhite;
   Image1.Canvas.Rectangle(0,0, image1.Width, image1.Height);
+  Wcoef := Screen.Width / 1920;
+  HCoef := Screen.Height / 1080;
+  // ShowMessage(FloatToStr( WCoef ));
   case level of
     lev1:
     begin
       n:=n1;
       for i := 1 to N do
       begin
-        PeakList[i].x := trunc(level1[1,i]*Screen.Width div 1920) - 60 + (initImgWidth - (480)*(Screen.Width div 1920)) div 2;
-        PeakList[i].y := trunc(level1[2,i]*Screen.Height div 1080) -40 + ( initImgHeight -(460)*(Screen.Height div 1080)) div 2 ;
+        PeakList[i].x := trunc(level1[1,i]*wcoef) - 60 + (initImgWidth - Trunc(480*WCoef)) div 2;
+        PeakList[i].y := trunc(level1[2,i]*hcoef) -40 + ( initImgHeight -Trunc(460*Hcoef)) div 2 ;
       end;
     end;
     lev2:
@@ -273,8 +277,8 @@ begin
       //ShowMessage( IntToStr( Image1.Width ) );
       for i := 1 to N do
       begin
-        PeakList[i].x := trunc(level2[1,i]*Screen.Width div 1920) - 80 + (initImgWidth - (780)*(Screen.Width div 1920)) div 2;
-        PeakList[i].y := trunc(level2[2,i]*Screen.Height div 1080) -40 + ( initImgHeight -(485)*(Screen.Height div 1080)) div 2 ;
+        PeakList[i].x := trunc(level2[1,i]*wcoef) - 80 + (initImgWidth - Trunc(780*wcoef)) div 2;
+        PeakList[i].y := trunc(level2[2,i]*hcoef) -40 + ( initImgHeight -Trunc(485*hcoef)) div 2 ;
       end;
     end;
     lev3:
@@ -282,8 +286,8 @@ begin
       n:=n3;
       for i := 1 to N do
       begin
-        PeakList[i].x := trunc(level3[1,i]*Screen.Width div 1920) - 40 + (initImgWidth - (260)*(Screen.Width div 1920)) div 2;
-        PeakList[i].y := trunc(level3[2,i]*Screen.Height div 1080) -40 + ( initImgHeight -(160)*(Screen.Height div 1080)) div 2 ;
+        PeakList[i].x := trunc(level3[1,i]*wcoef) - 40 + (initImgWidth - Trunc(260*wcoef)) div 2;
+        PeakList[i].y := trunc(level3[2,i]*wcoef) -40 + ( initImgHeight - Trunc(160*hcoef)) div 2 ;
        end;
     end;
     lev4:
@@ -291,8 +295,8 @@ begin
       n:=n3;
       for i := 1 to N do
       begin
-        PeakList[i].x := trunc(level4[1,i]*Screen.Width div 1920) - 125 + (initImgWidth - (315)*(Screen.Width div 1920)) div 2;
-        PeakList[i].y := trunc(level4[2,i]*Screen.Height div 1080) -50 + ( initImgHeight -(300)*(Screen.Height div 1080)) div 2 ;
+        PeakList[i].x := trunc(level4[1,i]*wcoef) - 125 + (initImgWidth - Trunc(315*wcoef)) div 2;
+        PeakList[i].y := trunc(level4[2,i]*hcoef) -50 + ( initImgHeight -Trunc(300*hcoef)) div 2 ;
       end;
     end;
   end;
