@@ -156,18 +156,12 @@ procedure TgraphForm.Button3Click(Sender: TObject);
 begin
 inc(level);
 drawGraph;
-button1.Visible:=false;
-button2.Visible:=false;
-button3.Visible:=false;
 end;
 
 procedure TgraphForm.Button4Click(Sender: TObject);
 begin
 level := lev1;
 drawGraph;
-button1.Visible:=false;
-button2.Visible:=false;
-button4.Visible:=false;
 end;
 
 procedure TgraphForm.ButtonRestartClick(Sender: TObject);
@@ -181,8 +175,10 @@ for i := 1 to N do
   Image1.Canvas.Brush.Color := RGB(104,174,186);
   Image1.Canvas.Ellipse(x0-R,Y0-R,X0+R,Y0+R)
   end;
-button2.Visible:=False;
 button1.Visible:=False;
+button2.Visible:=False;
+button3.Visible:=false;
+button4.Visible:=false;
 end;
 
 procedure TgraphForm.Button1Click(Sender: TObject);
@@ -390,6 +386,10 @@ begin
   begin
     Image1.Canvas.Ellipse(PeakList[i].x-R,PeakList[i].y-R,PeakList[i].x+R,PeakList[i].y+R);
   end;
+button1.Visible:=false;
+button2.Visible:=false;
+button3.Visible:=false;
+button4.Visible:=false;
 end;
 
 procedure TgraphForm.FormCreate(Sender: TObject);
