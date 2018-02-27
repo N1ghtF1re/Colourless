@@ -2,7 +2,7 @@ object graphForm: TgraphForm
   Left = 0
   Top = 0
   Caption = #1056#1072#1089#1082#1088#1072#1089#1082#1072' '#1075#1088#1072#1092#1072' - '#1044#1045#1052#1054
-  ClientHeight = 481
+  ClientHeight = 621
   ClientWidth = 975
   Color = clBtnHighlight
   Font.Charset = DEFAULT_CHARSET
@@ -24,6 +24,7 @@ object graphForm: TgraphForm
     Width = 790
     Height = 621
     Align = alClient
+    AutoSize = True
     Center = True
     Constraints.MinHeight = 621
     Constraints.MinWidth = 577
@@ -2798,12 +2799,13 @@ object graphForm: TgraphForm
     Left = 790
     Top = 0
     Width = 185
-    Height = 481
+    Height = 621
     Align = alRight
     Color = clInfoBk
     ParentBackground = False
     ShowCaption = False
     TabOrder = 0
+    ExplicitHeight = 461
     object Label1: TLabel
       Left = 24
       Top = 88

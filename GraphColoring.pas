@@ -139,6 +139,7 @@ var
   lsh, tsh: integer;
   level: TLevel;
   N:integer;
+  initImgWidth, initImgHeight: integer;
 
 implementation
 
@@ -262,20 +263,18 @@ begin
       n:=n1;
       for i := 1 to N do
       begin
-        PeakList[i].x := level1[1,i] + Level1XShift;
-        PeakList[i].y := level1[2,i] + Level1YShift;
+        PeakList[i].x := trunc(level1[1,i]*Screen.Width div 1920) - 60 + (initImgWidth - (480)*(Screen.Width div 1920)) div 2;
+        PeakList[i].y := trunc(level1[2,i]*Screen.Height div 1080) -40 + ( initImgHeight -(460)*(Screen.Height div 1080)) div 2 ;
       end;
     end;
     lev2:
     begin
       n:=n2;
-
+      //ShowMessage( IntToStr( Image1.Width ) );
       for i := 1 to N do
       begin
-
-        PeakList[i].x := trunc(level2[1,i]*Screen.Width div 1920) + Level1XShift - 30 + trunc(Screen.Height div 1080)*150;
-        PeakList[i].y := trunc(level2[2,i]*Screen.Height div 1080) + Level1YShift + 10;
-
+        PeakList[i].x := trunc(level2[1,i]*Screen.Width div 1920) - 80 + (initImgWidth - (780)*(Screen.Width div 1920)) div 2;
+        PeakList[i].y := trunc(level2[2,i]*Screen.Height div 1080) -40 + ( initImgHeight -(485)*(Screen.Height div 1080)) div 2 ;
       end;
     end;
     lev3:
@@ -283,19 +282,17 @@ begin
       n:=n3;
       for i := 1 to N do
       begin
-        PeakList[i].x := level3[1,i] + Level1XShift + 120;
-        PeakList[i].y := level3[2,i] + Level1YShift + 100;
-
-      end;
+        PeakList[i].x := trunc(level3[1,i]*Screen.Width div 1920) - 40 + (initImgWidth - (260)*(Screen.Width div 1920)) div 2;
+        PeakList[i].y := trunc(level3[2,i]*Screen.Height div 1080) -40 + ( initImgHeight -(160)*(Screen.Height div 1080)) div 2 ;
+       end;
     end;
     lev4:
     begin
       n:=n3;
       for i := 1 to N do
       begin
-        PeakList[i].x := level4[1,i] + Level1XShift ;
-        PeakList[i].y := level4[2,i] + Level1YShift + 50;
-
+        PeakList[i].x := trunc(level4[1,i]*Screen.Width div 1920) - 125 + (initImgWidth - (315)*(Screen.Width div 1920)) div 2;
+        PeakList[i].y := trunc(level4[2,i]*Screen.Height div 1080) -50 + ( initImgHeight -(300)*(Screen.Height div 1080)) div 2 ;
       end;
     end;
   end;
@@ -363,6 +360,8 @@ var
   i,j: Integer;
   png: TPngImage;
 begin
+  InitImgWidth := Image1.Width;
+  InitImgHeight := Image1.Height;
   png:= TPngImage(introIMG.Picture);
   Splash := TSplash.Create(png);
   Splash.Show(true);
