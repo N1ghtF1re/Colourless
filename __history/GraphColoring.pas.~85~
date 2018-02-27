@@ -62,7 +62,7 @@ const
   N1 = 12;
   Level1:array[1..2, 1..12] of integer = ((180,300,420,300,60,180,300,420,540,420,300,180),(110,40,110,200,400,320,320,320,400,500,500,500));
   N2 = 18;
-  level2:array[1..2, 1..18] of Integer = ((250,420,510,650,860,860,860,860,80,80,80,80,305,305,665,665,570,365), (50,50,50,50,250,370,445,535,535,445,370,220,{13}295,465,465,295,220,220));
+  level2:array[1..2, 1..18] of Integer = ((250,420,510,685,860,860,860,860,80,80,{11}80,80,305,305,630,630,570,365), (50,50,50,50,220,370,445,535,535,445,370,220,{13}295,465,465,295,220,220));
   N3 = 6;
   level3:array[1..2, 1..6] of integer = ((40,300,300,40,120,220),(40,40,200,200,120,120));
   level4:array[1..2, 1..6] of integer = ((125,280,440,440,280,125),(145,50,145,265,350,265));
@@ -74,6 +74,10 @@ const
   (stRed,stRed,stBlack,stRed,stBlack,stBlack,stRed,stRed,stBlack,stRed,stRed,stRed);
   Answer21:array[1..18] of TStatus =
   (stRed,stRed,stRed,stRed,stRed,stRed,stRed,stRed,stRed,stRed,stRed,stRed,stBlack,stBlack,stBlack,stBlack,stBlack,stBlack);
+  Answer22:array[1..18] of TStatus =
+  (stRed,stBlack,stBlack,stRed,stRed,stBlack,stBlack,stRed,stRed,stBlack,stBlack,stRed,stRed,stRed,stRed,stRed,stRed,stRed);
+  Answer23:array[1..18] of TStatus =
+  (stBlack,stRed,stRed,stBlack,stBlack,stRed,stRed,stBlack,stBlack,stRed,stRed,stBlack,stRed,stRed,stRed,stRed,stRed,stRed);
   Answer31:array[1..6] of TStatus =
   (stRed,stRed,stRed,stRed,stBlack,stBlack);
   Answer32:array[1..6] of TStatus =
@@ -139,6 +143,7 @@ var
   lsh, tsh: integer;
   level: TLevel;
   N:integer;
+  initImgWidth, initImgHeight: integer;
 
 implementation
 
@@ -184,8 +189,12 @@ while (i<=N) and (gameState) do
       end;
       lev2:
       begin
-        gamestate3:= false;
-        gameState2 := False;
+        if gameState3 then
+          if (Peaklist[i].Status <> Answer23[i]) then
+            gameState3:=False;
+        if gameState2 then
+          if (Peaklist[i].Status <> Answer22[i]) then
+            gameState2:=False;
         if gameState1 then
           if (Peaklist[i].Status <> Answer21[i]) then
             gameState1:=False;
@@ -252,28 +261,32 @@ end;
 
 procedure TgraphForm.RisuiSuka;
 var i,j:integer;
+Wcoef, HCoef:real;
 begin
   Image1.Canvas.Brush.Color:= clWhite;
   image1.Canvas.Pen.Color := clWhite;
   Image1.Canvas.Rectangle(0,0, image1.Width, image1.Height);
+  Wcoef := Screen.Width / 1920;
+  HCoef := Screen.Height / 1080;
+  // ShowMessage(FloatToStr( WCoef ));
   case level of
     lev1:
     begin
       n:=n1;
       for i := 1 to N do
       begin
-        PeakList[i].x := level1[1,i] + Level1XShift;
-        PeakList[i].y := level1[2,i] + Level1YShift;
+        PeakList[i].x := trunc(level1[1,i]*wcoef) - 60 + (initImgWidth - Trunc(480*WCoef)) div 2;
+        PeakList[i].y := trunc(level1[2,i]*hcoef) -40 + ( initImgHeight -Trunc(460*Hcoef)) div 2 ;
       end;
     end;
     lev2:
     begin
       n:=n2;
-
+      //ShowMessage( IntToStr( Image1.Width ) );
       for i := 1 to N do
       begin
-        PeakList[i].x := trunc(level2[1,i]*Screen.Width div 1920) - 80 + (Image1.Width-(780 {+ 2*R})*(Screen.Width div 1920)) div 2;
-        PeakList[i].y := trunc(level2[2,i]*Screen.Height div 1080) -40 + (Image1.Height-(485 + 2*R)*(Screen.Height div 1080)) div 2 ;
+        PeakList[i].x := trunc(level2[1,i]*wcoef) - 80 + (initImgWidth - Trunc(780*wcoef)) div 2;
+        PeakList[i].y := trunc(level2[2,i]*hcoef) -40 + ( initImgHeight -Trunc(485*hcoef)) div 2 ;
       end;
     end;
     lev3:
@@ -281,19 +294,17 @@ begin
       n:=n3;
       for i := 1 to N do
       begin
-        PeakList[i].x := level3[1,i] + Level1XShift + 120;
-        PeakList[i].y := level3[2,i] + Level1YShift + 100;
-
-      end;
+        PeakList[i].x := trunc(level3[1,i]*wcoef) - 40 + (initImgWidth - Trunc(260*wcoef)) div 2;
+        PeakList[i].y := trunc(level3[2,i]*wcoef) -40 + ( initImgHeight - Trunc(160*hcoef)) div 2 ;
+       end;
     end;
     lev4:
     begin
       n:=n3;
       for i := 1 to N do
       begin
-        PeakList[i].x := level4[1,i] + Level1XShift ;
-        PeakList[i].y := level4[2,i] + Level1YShift + 50;
-
+        PeakList[i].x := trunc(level4[1,i]*wcoef) - 125 + (initImgWidth - Trunc(315*wcoef)) div 2;
+        PeakList[i].y := trunc(level4[2,i]*hcoef) -50 + ( initImgHeight -Trunc(300*hcoef)) div 2 ;
       end;
     end;
   end;
@@ -361,6 +372,8 @@ var
   i,j: Integer;
   png: TPngImage;
 begin
+  InitImgWidth := Image1.Width;
+  InitImgHeight := Image1.Height;
   png:= TPngImage(introIMG.Picture);
   Splash := TSplash.Create(png);
   Splash.Show(true);
