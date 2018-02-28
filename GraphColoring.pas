@@ -53,6 +53,7 @@ type
     procedure mnLevel4Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
     procedure Button4Click(Sender: TObject);
+
   private
   splash: TSplash;
     { Private declarations }
@@ -105,9 +106,9 @@ const
             (0,0,0,0,0,0,0,0,0,1,0,0),
             (0,0,0,0,0,0,0,0,0,0,1,0),
             (0,0,0,0,0,0,0,0,0,0,0,1));
-  BConntection4:array[1..17,1..18] of Byte =
+  BConnection4:array[1..17,1..18] of Byte =
 // 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8
-  ((0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1),
+ ((0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1),
   (0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1),
   (0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0),
   (0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0),
@@ -151,6 +152,57 @@ implementation
 
 {$R *.dfm}
 
+function checkCorrected4:Boolean;
+var i, j, k:integer;
+    numRed, numBlack:integer;
+    completedTask, correct:Boolean;
+begin
+completedTask:=true;
+correct:=true;
+
+j:=1;
+while (j<=N) and (completedTask) and (correct) do
+  begin
+  numRed:=0;
+  numBlack:=0;
+  i:=1;
+  while (i<j) and (completedTask) and (correct) do
+    begin
+    if BConnection4[i,j] = 1 then
+      begin
+      if PeakList[i].status = stBlack then Inc(numBlack);
+      if PeakList[i].status = stRed then Inc(numRed);
+      if PeakList[i].status = stBlue then completedTask:=false;
+
+      if (numRed>2) or (numBlack>1) then
+        correct:=false;
+      end;
+    Inc(i);
+    end;
+
+  k:=j;
+  while (k<=N) and (completedTask) and (correct) do
+    begin
+    if BConnection4[j,k] = 1 then
+      begin
+      if PeakList[k].status = stBlack then Inc(numBlack);
+      if PeakList[k].status = stRed then Inc(numRed);
+      if PeakList[k].status = stBlue then completedTask:=false;
+
+      if (numRed>2) or (numBlack>1) then
+        correct:=false;
+      end;
+    inc(k);
+    end;
+
+  Inc(j);
+  end;
+
+if correct and completedTask then
+  result:=True
+else
+  result:=False;
+end;
 
 procedure TgraphForm.Button3Click(Sender: TObject);
 begin
@@ -190,8 +242,12 @@ gameState1 := true;
 gameState2 := true;
 gameState3:= True;
 FinishedBool := true;
+  if level = lev4 then
+    begin
+    if not(checkCorrected4) then gameState:=False;
+    end;
 i:=1;
-while (i<=N) and (gameState) do
+while (i<=N) and (gameState) and (level<>lev4) do
   begin
     case level of
       lev3:
@@ -206,6 +262,7 @@ while (i<=N) and (gameState) do
       end;
       lev4:
       begin
+        {
         if gameState3 then
           if (Peaklist[i].Status <> Answer43[i]) then
             gameState3:=False;
@@ -214,11 +271,12 @@ while (i<=N) and (gameState) do
             gameState2:=False;
         if gameState1 then
           if (Peaklist[i].Status <> Answer41[i]) then
-            gameState1:=False;
+            gameState1:=False;     }
 
       end;
       lev1:
       begin
+
         if gameState1 then
           if (Peaklist[i].Status <> Answer11[i]) then
             gameState1:=False;
@@ -245,9 +303,8 @@ while (i<=N) and (gameState) do
 
       end;
     end;
-
   if not (gameState1 or gameState2 or gameState3)  then
-    gameState:=False;
+      gameState:=False;
 
   if Peaklist[i].Status = stBlue then
     FinishedBool:=False;
@@ -349,7 +406,7 @@ begin
         end;
         lev4:
         begin
-          if BConntection4[i,j] = 1 then
+          if BConnection4[i,j] = 1 then
           begin
             Image1.Canvas.MoveTo(PeakList[i].x, PeakList[i].y);
             Image1.Canvas.LineTo(PeakList[j].x, PeakList[j].y);
