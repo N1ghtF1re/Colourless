@@ -181,7 +181,7 @@ while (j<=N) and (completedTask) and (correct) do
     end;
 
   k:=j;
-  while (k<=N) and (completedTask) and (correct) do
+  while (j<N) and (k<=N) and (completedTask) and (correct) do
     begin
     if BConnection4[j,k] = 1 then
       begin
