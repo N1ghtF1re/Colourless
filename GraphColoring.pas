@@ -5,13 +5,12 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, VcL.Menus, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls,SplashScreen, pngimage,
-  Instructions;
+  Instructions,Levels;
 const
   R = 25;
 
 type
- TBConnection1 = array [1..11,1..12] of byte;
-  TStatus = (stBlue, stRed, stBlack);
+  TCheck = function(i,j:byte):boolean;
   //TArray = array [1..18] of Tstatus;
   TLevel = (lev1, lev2, lev3, lev4);
   TPeak = record
@@ -61,82 +60,6 @@ type
     { Public declarations }
   end;
 
-const
-  N1 = 12;
-  Level3:array[1..2, 1..12] of integer = ((180,300,420,300,60,180,300,420,540,420,300,180),(110,40,110,200,400,320,320,320,400,500,500,500));
-  N2 = 18;
-  level4:array[1..2, 1..18] of Integer = ((250,420,510,685,860,860,860,860,80,80,{11}80,80,305,305,630,630,570,365), (50,50,50,50,220,370,445,535,535,445,370,220,{13}295,465,465,295,220,220));
-  N3 = 6;
-  level1:array[1..2, 1..6] of integer = ((40,300,300,40,120,220),(40,40,200,200,120,120));
-  level2:array[1..2, 1..6] of integer = ((125,280,440,440,280,125),(145,50,145,265,350,265));
-  Level3XShift = 120;
-  Level3YShift = 60;
-  Answer31:array [1..12] of Tstatus =
-  (stBlack,stRed,stRed,stRed,stBlack,stRed,stRed,stRed,stBlack,stBlack,stRed,stRed);
-  Answer32:array [1..12] of Tstatus=
-  (stRed,stRed,stBlack,stRed,stBlack,stBlack,stRed,stRed,stBlack,stRed,stRed,stRed);
-  Answer41:array[1..18] of TStatus =
-  (stRed,stRed,stRed,stRed,stRed,stRed,stRed,stRed,stRed,stRed,stRed,stRed,stBlack,stBlack,stBlack,stBlack,stBlack,stBlack);
-  Answer42:array[1..18] of TStatus =
-  (stRed,stBlack,stBlack,stRed,stRed,stBlack,stBlack,stRed,stRed,stBlack,stBlack,stRed,stRed,stRed,stRed,stRed,stRed,stRed);
-  Answer43:array[1..18] of TStatus =
-  (stBlack,stRed,stRed,stBlack,stBlack,stRed,stRed,stBlack,stBlack,stRed,stRed,stBlack,stRed,stRed,stRed,stRed,stRed,stRed);
-  Answer11:array[1..6] of TStatus =
-  (stRed,stRed,stRed,stRed,stBlack,stBlack);
-  Answer12:array[1..6] of TStatus =
-  (stBlack,stBlack,stRed,stRed,stRed,stRed);
-  Answer13:array[1..6] of TStatus =
-  (stRed,stRed,stBlack,stBlack,stRed,stRed);
-  Answer21:array[1..6] of TStatus =
-  (stRed,stBlack,stRed,stRed,stBlack,stRed);
-  Answer22:array[1..6] of TStatus =
-  (stRed,stRed,stBlack,stRed,stRed,stBlack);
-  Answer23:array[1..6] of TStatus =
-  (stBlack,stRed,stRed,stBlack,stRed,stRed);
-  const   // 2 3 4 5 6 7 8 9 0 1 2
-	BConnection3:TBConnection1 =
-           ((0,1,0,1,1,0,0,0,0,0,0,0),
-            (0,0,1,1,0,0,0,0,0,0,0,0),
-            (0,0,0,1,0,0,0,0,1,0,0,0),
-            (0,0,0,0,0,0,0,0,0,0,0,0),
-            (0,0,0,0,0,1,0,0,0,0,0,1),
-            (0,0,0,0,0,0,1,0,0,0,1,0),
-            (0,0,0,0,0,0,0,1,0,1,0,0),
-            (0,0,0,0,0,0,0,0,1,0,0,1),
-            (0,0,0,0,0,0,0,0,0,1,0,0),
-            (0,0,0,0,0,0,0,0,0,0,1,0),
-            (0,0,0,0,0,0,0,0,0,0,0,1));
-  BConnection4:array[1..17,1..18] of Byte =
-// 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8
- ((0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1),
-  (0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1),
-  (0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0),
-  (0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0),
-  (0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0),
-  (0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0),
-  (0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0),
-  (0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0),
-  (0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0),
-  (0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0),
-  (0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0),
-  (0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0),
-  (0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0),
-  (0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),
-  (0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0),
-  (0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),
-  (0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1));
-  BConnection1:array[1..5, 1..6] of Byte =
-  ((0,1,0,1,1,0),
-  (0,0,1,0,0,1),
-  (0,0,0,1,0,1),
-  (0,0,0,0,1,0),
-  (0,0,0,0,0,1));
-  BConnection2:array[1..5, 1..6] of Byte =
-  ((0,0,1,1,1,0),
-  (0,0,0,1,1,1),
-  (0,0,0,0,1,1),
-  (0,0,0,0,0,1),
-  (0,0,0,0,0,0));
 var
   graphForm: TgraphForm;
   PeakList:TPeakList;
@@ -152,7 +75,28 @@ implementation
 
 {$R *.dfm}
 
-function checkCorrected4:Boolean;
+function Check1(i,j:Byte):boolean;
+begin
+  result := BConnection1[i,j] = 1;
+end;
+
+function Check2(i,j:Byte):boolean;
+begin
+  result := BConnection2[i,j] = 1;
+end;
+
+function Check3(i,j:Byte):boolean;
+begin
+  result := BConnection3[i,j] = 1;
+end;
+
+function Check4(i,j:Byte):boolean;
+begin
+  result := BConnection4[i,j] = 1;
+end;
+
+
+function checkCorrected(Check:TCheck):Boolean;
 var i, j, k:integer;
     numRed, numBlack:integer;
     completedTask, correct:Boolean;
@@ -168,7 +112,7 @@ while (j<=N) and (completedTask) and (correct) do
   i:=1;
   while (i<j) and (completedTask) and (correct) do
     begin
-    if BConnection4[i,j] = 1 then
+    if Check(i,j) then
       begin
       if PeakList[i].status = stBlack then Inc(numBlack);
       if PeakList[i].status = stRed then Inc(numRed);
@@ -183,7 +127,7 @@ while (j<=N) and (completedTask) and (correct) do
   k:=j;
   while (j<N) and (k<=N) and (completedTask) and (correct) do
     begin
-    if BConnection4[j,k] = 1 then
+    if Check(i,j) then
       begin
       if PeakList[k].status = stBlack then Inc(numBlack);
       if PeakList[k].status = stRed then Inc(numRed);
@@ -235,81 +179,27 @@ end;
 
 procedure TgraphForm.Button1Click(Sender: TObject);
 var i:integer;
-    gameState1, gameState2, gamestate3, FinishedBool:Boolean;
+    FinishedBool:Boolean;
 begin
 gameState:=true;
-gameState1 := true;
-gameState2 := true;
-gameState3:= True;
 FinishedBool := true;
   if level = lev4 then
-    begin
-    if not(checkCorrected4) then gameState:=False;
-    end;
-i:=1;
-while (i<=N) and (gameState) and (level<>lev4) do
   begin
-    case level of
-      lev3:
-      begin
-        gamestate3:= false;
-        if gameState1 then
-          if (Peaklist[i].Status <> Answer31[i]) then
-            gameState1:=False;
-        if gameState2 then
-          if (Peaklist[i].Status <> Answer32[i]) then
-            gameState2:=False;
-      end;
-      lev4:
-      begin
-        {
-        if gameState3 then
-          if (Peaklist[i].Status <> Answer43[i]) then
-            gameState3:=False;
-        if gameState2 then
-          if (Peaklist[i].Status <> Answer42[i]) then
-            gameState2:=False;
-        if gameState1 then
-          if (Peaklist[i].Status <> Answer41[i]) then
-            gameState1:=False;     }
-
-      end;
-      lev1:
-      begin
-
-        if gameState1 then
-          if (Peaklist[i].Status <> Answer11[i]) then
-            gameState1:=False;
-         if gameState2 then
-         if (Peaklist[i].Status <> Answer12[i]) then
-            gameState2:=False;
-         if gameState3 then
-          if (Peaklist[i].Status <> Answer13[i]) then
-            gameState3:=False;
-
-      end;
-      lev2:
-      begin
-
-        if gameState1 then
-          if (Peaklist[i].Status <> Answer21[i]) then
-            gameState1:=False;
-         if gameState2 then
-         if (Peaklist[i].Status <> Answer22[i]) then
-            gameState2:=False;
-         if gameState3 then
-          if (Peaklist[i].Status <> Answer23[i]) then
-            gameState3:=False;
-
-      end;
-    end;
-  if not (gameState1 or gameState2 or gameState3)  then
-      gameState:=False;
-
-  if Peaklist[i].Status = stBlue then
-    FinishedBool:=False;
-  inc(i);
+    if not(checkCorrected(Check4)) then gameState:=False;
   end;
+  if level = lev3 then
+  begin
+    if not(checkCorrected(Check3)) then gameState:=False;
+  end;
+  if level = lev2 then
+  begin
+    if not(checkCorrected(Check2)) then gameState:=False;
+  end;
+  if level = lev1 then
+  begin
+    if not(checkCorrected(Check1)) then gameState:=False;
+  end;
+
 if gameState then
   begin
   ShowMessage('Все правильно!');
