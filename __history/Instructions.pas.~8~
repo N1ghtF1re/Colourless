@@ -1,0 +1,44 @@
+{*******************************************************}
+{                                                       }
+{       Coloring Graph                                  }
+{       The trademark is not registered                 }
+{       no rights are protected                         }
+{       (c) 2018,  BrakhMen Corp                        }
+{       SITE: brakhmen.info                             }
+{                                                       }
+{*******************************************************}
+unit Instructions;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Imaging.pngimage, Vcl.ExtCtrls,
+  Vcl.StdCtrls;
+
+type
+  TForm1 = class(TForm)
+    Image1: TImage;
+    chk1: TCheckBox;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+uses GraphColoring;
+{$R *.dfm}
+
+procedure TForm1.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  ShowMessage( BoolToStr(chk1.Checked)  );
+  graphForm.isClose := chk1.Checked;
+end;
+
+end.
