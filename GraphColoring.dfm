@@ -2,7 +2,7 @@ object graphForm: TgraphForm
   Left = 0
   Top = 0
   Caption = #1056#1072#1089#1082#1088#1072#1089#1082#1072' '#1075#1088#1072#1092#1072' - '#1044#1045#1052#1054
-  ClientHeight = 561
+  ClientHeight = 521
   ClientWidth = 975
   Color = clBtnHighlight
   Font.Charset = DEFAULT_CHARSET
@@ -12,6 +12,7 @@ object graphForm: TgraphForm
   Font.Style = []
   Menu = MainMenu1
   OldCreateOrder = False
+  OnActivate = FormActivate
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnKeyDown = FormKeyDown
@@ -2799,7 +2800,7 @@ object graphForm: TgraphForm
     Left = 736
     Top = 0
     Width = 239
-    Height = 561
+    Height = 521
     Align = alRight
     Color = clInfoBk
     ParentBackground = False

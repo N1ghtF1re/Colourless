@@ -1,4 +1,14 @@
-﻿unit GraphColoring;
+﻿{*******************************************************}
+{                                                       }
+{       Coloring Graph                                  }
+{       The trademark is not registered                 }
+{       no rights are protected                         }
+{       (c) 2018,  BrakhMen Corp                        }
+{       SITE: brakhmen.info                             }
+{                                                       }
+{*******************************************************}
+
+unit GraphColoring;
 
 interface
 
@@ -52,12 +62,14 @@ type
     procedure mnLevel4Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
     procedure Button4Click(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
 
   private
   splash: TSplash;
     { Private declarations }
   public
-    { Public declarations }
+    isClose:Boolean;
+    numOfHelp:byte;
   end;
 
 var
@@ -70,6 +82,8 @@ var
   level: TLevel;
   N:integer;
   initImgWidth, initImgHeight: integer;
+  isNoActive:boolean;
+
 
 implementation
 
@@ -339,11 +353,61 @@ button3.Visible:=false;
 button4.Visible:=false;
 end;
 
+procedure TgraphForm.FormActivate(Sender: TObject);
+var
+  f: file of byte;
+  b:byte;
+  var y,n:byte;
+begin
+  if isNoActive then
+  begin
+    isNoActive := false;
+    y:=1;
+    n:=0;
+    b:=1;
+    AssignFile(f, 'openhelp.brakh');
+    if fileExists('openhelp.brakh') then
+    begin
+      Reset(f);
+      read(f, b);
+      //showmessage( IntToStr(b));
+      if b = 1 then
+      begin
+        Application.CreateForm(TForm1, Form1);
+        Form1.showModal;
+      end;
+      //ShowMessage( BoolToStr(isClose)  );
+    end
+    else
+    begin
+      Rewrite(f);
+      write(f, y);
+      Application.CreateForm(TForm1, Form1);
+      Form1.showModal;
+    end;
+
+    if (b <> 0) then
+    begin
+      rewrite(f);
+      if isClose then
+      begin
+        write(f, n);
+      end
+      else
+      begin
+        write(f, y);
+      end;
+    end;
+  end;
+end;
+
 procedure TgraphForm.FormCreate(Sender: TObject);
 var
   i,j: Integer;
   png: TPngImage;
 begin
+  numofhelp := 0;
+  isNoActive := true;
   InitImgWidth := Image1.Width;
   InitImgHeight := Image1.Height;
   png:= TPngImage(introIMG.Picture);
@@ -358,10 +422,11 @@ begin
 
   Sleep(2000);
 
-  Splash.Close;
-
+  Splash.Close;//AssignFile(f, 'openhelp.brakh');
   //png.Free;
 end;
+
+
 
 procedure TgraphForm.FormDestroy(Sender: TObject);
 begin
@@ -431,6 +496,7 @@ end;
 
 procedure TgraphForm.mnHelpClick(Sender: TObject);
 begin
+  numOfHelp := 1;
   Application.CreateForm(TForm1, Form1);
   FORM1.SHOW
 end;
