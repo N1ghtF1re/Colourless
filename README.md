@@ -14,4 +14,4 @@ In the development of this chic game involved:
 + [**Holubeu Kiryl**](https://vk.com/smertowing)
 + [**Pilinko Nikita**](https://vk.com/mineralsfree)
 
-#### [Download last version](https://github.com/N1ghtF1re/Colourless/releases/tag/v0.1)
+#### [Download last version](https://github.com/N1ghtF1re/Colourless/releases/tag/v0.11)
