@@ -264,11 +264,12 @@ begin
     lev4:
     begin
       n:=n2;
+      //ShowMessage( IntToStr(  Screen.PixelsPerInch ));
       //ShowMessage( IntToStr( Image1.Width ) );
       for i := 1 to N do
       begin
-        PeakList[i].x := trunc(level4[1,i]*wcoef) - 80 + (initImgWidth - Trunc(780*wcoef)) div 2;
-        PeakList[i].y := trunc(level4[2,i]*hcoef) -40 + ( initImgHeight -Trunc(485*hcoef)) div 2 ;
+        PeakList[i].x := trunc(level4[1,i]*wcoef*0.7) - 80 + (initImgWidth - Trunc(780*wcoef*0.7)) div 2;
+        PeakList[i].y := trunc(level4[2,i]*hcoef*0.7) -40 + ( initImgHeight -Trunc(485*hcoef*0.7)) div 2 ;
       end;
     end;
     lev1:
@@ -450,6 +451,7 @@ end;
 
 procedure TgraphForm.FormResize(Sender: TObject);
 begin
+
   lsh := (Self.Width - InitWidth) div 2;
   tsh := (Self.Height - InitHeight) div 2;
   Invalidate;

@@ -2,7 +2,7 @@ object graphForm: TgraphForm
   Left = 0
   Top = 0
   Caption = 'Colourless - DEMO'
-  ClientHeight = 521
+  ClientHeight = 501
   ClientWidth = 975
   Color = clBtnHighlight
   Font.Charset = DEFAULT_CHARSET
@@ -2700,7 +2700,7 @@ object graphForm: TgraphForm
     Left = 736
     Top = 0
     Width = 239
-    Height = 521
+    Height = 501
     Align = alRight
     Color = clInfoBk
     ParentBackground = False
