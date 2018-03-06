@@ -13,3 +13,5 @@ In the development of this chic game involved:
 + [**Pankratiew Alexandr**](https://vk.com/sasha_pankratiew)
 + [**Holubeu Kiryl**](https://vk.com/smertowing)
 + [**Pilinko Nikita**](https://vk.com/mineralsfree)
+
+#### [Download last version](https://github.com/N1ghtF1re/Colourless/releases/tag/v0.1)
