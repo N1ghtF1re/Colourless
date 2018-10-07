@@ -1,4 +1,4 @@
-﻿{*******************************************************}
+{*******************************************************}
 {                                                       }
 {       Coloring Graph                                  }
 {       The trademark is not registered                 }
@@ -96,17 +96,27 @@ end;
 
 function Check2(i,j:Byte):boolean;
 begin
-  result := BConnection2[i,j] = 1;
+
+  result := BConnection2[i,j] = 1;
 end;
 
 function Check3(i,j:Byte):boolean;
 begin
-  result := BConnection3[i,j] = 1;
-end;
+
+  result := BConnection3[i,j] = 1;
+
+end;
 
 function Check4(i,j:Byte):boolean;
 begin
-  result := BConnection4[i,j] = 1;
+
+  result := BConnection4[i,j] = 1;
+end;
+
+procedure buttonsToDefault();
+begin
+    button1.visible:=false
+    button2.visible:=false
 end;
 
 
@@ -185,8 +195,7 @@ for i := 1 to N do
   Image1.Canvas.Brush.Color := RGB(104,174,186);
   Image1.Canvas.Ellipse(x0-R,Y0-R,X0+R,Y0+R)
   end;
-button1.Visible:=False;
-button2.Visible:=False;
+buttonsToDefault;
 button3.Visible:=false;
 button4.Visible:=false;
 end;
@@ -348,8 +357,7 @@ begin
   begin
     Image1.Canvas.Ellipse(PeakList[i].x-R,PeakList[i].y-R,PeakList[i].x+R,PeakList[i].y+R);
   end;
-button1.Visible:=false;
-button2.Visible:=false;
+buttonsToDefault;
 button3.Visible:=false;
 button4.Visible:=false;
 end;
@@ -538,8 +546,7 @@ for i := 1 to N do
   Image1.Canvas.Brush.Color := RGB(104,174,186);
   Image1.Canvas.Ellipse(x0-R,Y0-R,X0+R,Y0+R)
   end;
-button2.Visible:=False;
-button1.Visible:=False;
+buttonsToDefault;
 end;
 
 end.
